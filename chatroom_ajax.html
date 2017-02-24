@@ -1,0 +1,94 @@
+<html>
+<head>
+<title>Chatroom</title>
+<META AUTHOR="Spalding Vance & Miku Fukuyama">
+</head>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+  <!-- $Id: chatroom_ajax.html,v 1.6 skon Exp $ -->
+<link rel="stylesheet" type="text/css" href="chatroom_ajax.css">
+  <title>GNU cgicc Chatroom</title>
+</head>
+
+<script type = "text/javascript">
+var XMLHttp;
+if(navigator.appName == "Microsoft Internet Explorer") {
+    XMLHttp = new ActiveXObject("Microsoft.XMLHTTP");
+} else {
+    XMLHttp = new XMLHttpRequest();
+}
+function getmessage () {
+     var message = document.getElementById('message').message;		     
+     if (message.length < 1) return;
+
+    XMLHttp.open("GET", "/cgi-bin/vances_chatroomajax.cgi?"
+						 + "&message=" + message
+						 ,true);
+    XMLHttp.onreadystatechange=function() {
+    	document.getElementById('message_response_area').innerHTML = XMLHttp.responseText;
+    }
+	XMLHttp.send(null);
+}
+
+function makeReadOnly() {
+    document.getElementById('user').readOnly = true;
+  } 
+  
+function getuser () {
+	var user = document.getElementById('user').value;
+	if (user.length < 1) return;
+	
+	XMLHttp.open("GET", "/cgi-bin/vances_chatroomajax.cgi?"
+						+ "&user=" + user
+						,true);
+						 XMLHttp.onreadystatechange=function() {
+    	document.getElementById('user_response_area').innerHTML = XMLHttp.responseText;
+    }
+	XMLHttp.send(null);
+}
+
+function validateMessage() {
+    var message = document.getElementById("message").value;
+    if (message.indexOf('&&') > -1)
+{
+  alert("Message may not contain '&&' ");
+}
+}
+
+</script>
+<body>
+<h1>Chatoom</h1>
+<hr>
+Please enter your desired username: 
+<input user="user" type="text" id=user>
+<p>
+<input type="button" onclick="javascript: getuser (); javascript: makeReadOnly ();" user="submit" value="Submit" />
+</p>
+
+
+<div id = "user_response_area">
+</div>
+
+<hr>
+Enter a message: 
+<input message="message" type="text" id=message maxlength=140></td>
+
+<p>
+<input type="button" value="Submit" message="submit" onclick="javascript: validateMessage ()"/>
+</p>
+
+
+<div id = "message_response_area">
+</div>
+
+<div class = "Messagebox">
+</div>
+
+
+</body>
+						
+
+
+
+</html>

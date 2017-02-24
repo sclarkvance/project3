@@ -1,0 +1,40 @@
+<STYLE TYPE-"type/css" >
+
+BODY {background: #FFFFFF}
+A:link {color: #80FF00}
+A:visited {color: #FF00FF}
+H1 {font-size: 24pt; font-family: arial}
+H2 {font-size: 18pt; font-family: braggadocio}
+H3 {font size:14pt; font-family: desdemona}
+
+.Messagebox {
+display: block;
+    width:400px;
+    height:400px;
+    padding:20px;
+    border:5px solid blue;
+    border-radius:8px;
+}
+
+
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+}
+
+.message_response_area {
+display: block;
+width
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</STYLE>
