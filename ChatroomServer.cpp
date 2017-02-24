@@ -23,9 +23,9 @@ string send_fifo = "CRreply";
 
 
   
-
-int main() {
 vector <string> chatVector;
+int main() {
+
     // create the FIFOs for communication
   Fifo recfifo(receive_fifo);
   Fifo sendfifo(send_fifo);
@@ -38,38 +38,47 @@ while(1) {
 
   /* Get a message from a client */
     recfifo.openread();
+    
     fullChat = recfifo.recv();
-     cleanMessage(fullChat);
     
-    
+	recfifo.fifoclose();
+     pushMessage(fullChat);
+    for(int a=0; a <= chatVector.size(); a++) {
+    sendfifo.openwrite();
+    sendfifo.send(chatVector[a]);
+    sendfifo.fifoclose();
+    }   
     
     }
-sendfifo.fifoclose();
-	recfifo.fifoclose();
+
 }
 
 
-string cleanMessage(string fullChat, string& user, string& message) {
+void pushMessage(string fullChat, string& user, string& message) {
+string chatMessage;
 const string userDelineator = "&&";
 const string messageDelineator = "~~";
   size_t userPos = fullChat.find_first_of(userDelineator);
 size_t messagePos = fullChat.find_first_of(messageDelineator);
   while (userPos != string::npos || messagePos != string::npos) { 
   if (userPos != string::npos) {
-    message[userPos] = ""; 
+    //message[userPos] = ""; 
     if (userPos > messagePos) {
-    string user == fullChat.substr(messagePos, userPos)
+    string user == fullChat.substr(messagePos+1, userPos-1);
     }
-    userPos = str.find_first_of(userDelineator, userPos+1); 
+    userPos = fullChat.find_first_of(userDelineator, userPos+1); 
     }
      if (messagePos != string::npos) {
-    message[messagePos] = ""; 
+         if (messagePos > userPos) {
+    message == fullChat.substr(userPos+1,messagePos-1);
+    }
+    //message[messagePos] = ""; 
     messagePos = fullChat.find_first_of(messageDelineator, messagePos+1); 
     }
+    chatMessage = user + ": " + message;
+    chatVector.push_back(chatMessage);
   }
 
-
-  return message; 
 
 }
 
