@@ -26,7 +26,6 @@ string send_fifo = "CRreply";
   
 vector <string> chatVector;
 int main() {
-cout << "main started";
 
     // create the FIFOs for communication
   Fifo recfifo(receive_fifo);
@@ -37,7 +36,6 @@ cout << "main started";
 
 
 while(1) {
-cout << "started";
 
   /* Get a message from a client */
     recfifo.openread();

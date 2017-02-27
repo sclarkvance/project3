@@ -56,9 +56,13 @@ function validateMessage() {
 }
 }
 
+function deleteUser() {
+document.getElementById("user_response_area").value="";
+}
+
 </script>
-<body>
-<h1>Chatoom</h1>
+<body onunload="deleteUser()">
+<h1>Chatroom</h1>
 <hr>
 Please enter your desired username: 
 <input user="user" type="text" id=user>
