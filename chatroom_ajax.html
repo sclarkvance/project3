@@ -31,6 +31,17 @@ function getmessage () {
 	XMLHttp.send(null);
 }
 
+// Things to do at page load
+function pageInit() {
+
+}
+
+// Function to force scrollable window at bottom
+function updateScroll(){
+    var element = document.getElementById("chatBox");
+    element.scrollTop = element.scrollHeight;
+}
+
 function makeReadOnly() {
     document.getElementById('user').readOnly = true;
   } 
@@ -48,6 +59,31 @@ function getuser () {
 	XMLHttp.send(null);
 }
 
+// Respond to send button
+function addText() {
+    // Get the text from the text box
+    var inText = document.chatForm.textInput.value;
+    
+    // Make sure something is there
+    if (inText.length < 1) return;
+	
+	XMLHttp.open("GET", "/cgi-bin/vances_chatroomajax.cgi?"
+						+ "&message=" + message
+						,true);
+						 XMLHttp.onreadystatechange=function() {
+    	document.getElementById('message_response_area').innerHTML = XMLHttp.responseText;
+    }
+	XMLHttp.send(null);
+    
+    // Clear the input text
+    document.chatForm.textInput.value = "";
+	
+    // add to the bottom of the chat box
+    document.getElementById('chatBox').innerHTML += "<font color='red'>You: </font>" + inText+"<br />";
+    // force to bottom
+    updateScroll();
+}
+
 function validateMessage() {
     var message = document.getElementById("message").value;
     if (message.indexOf('&&') > -1)
@@ -59,6 +95,8 @@ function validateMessage() {
 function deleteUser() {
 document.getElementById("user_response_area").value="";
 }
+
+
 
 </script>
 <body onunload="deleteUser()">
