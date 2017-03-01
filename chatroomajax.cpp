@@ -79,5 +79,6 @@ const string userDelineator = "&&";
      //message[messagePos] = ""; 
      messagePos = message.find_first_of(messageDelineator, messagePos+1); 
      }
-     chatMessage = user + ": " + message;
+      message = user + ": " + message;
 }	
+}
