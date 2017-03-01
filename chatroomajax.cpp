@@ -14,9 +14,12 @@
 #include <iostream>
 #include <fstream>
 #include "fifo.h"
+#include <string>
 
 using namespace std;
 using namespace cgicc; // Needed for AJAX functions.
+
+void parseMessage(string&);
 
 
 // fifo for communication
@@ -55,3 +58,26 @@ string message = **messagetext;
   
 return 0;
 }
+
+void parseMessage(string& message) {
+const string userDelineator = "&&";
+ const string messageDelineator = "~~";
+   size_t userPos = message.find_first_of(userDelineator);
+ size_t messagePos = message.find_first_of(messageDelineator);
+   while (userPos != string::npos || messagePos != string::npos) { 
+   if (userPos != string::npos) {
+     //message[userPos] = ""; 
+     if (userPos > messagePos) {
+     string user = message.substr(messagePos+1, userPos-1);
+     }
+     userPos = message.find_first_of(userDelineator, userPos+1); 
+     }
+      if (messagePos != string::npos) {
+          if (messagePos > userPos) {
+     message = message.substr(userPos+1,messagePos-1);
+     }
+     //message[messagePos] = ""; 
+     messagePos = message.find_first_of(messageDelineator, messagePos+1); 
+     }
+     chatMessage = user + ": " + message;
+}	
