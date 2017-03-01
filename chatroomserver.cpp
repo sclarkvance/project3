@@ -24,9 +24,9 @@ string send_fifo = "CRreply";
 
 
   
-vector <string> chatVector;
-int main() {
 
+int main() {
+vector <string> chatVector;
     // create the FIFOs for communication
   Fifo recfifo(receive_fifo);
   Fifo sendfifo(send_fifo);
@@ -43,7 +43,7 @@ while(1) {
     fullChat = recfifo.recv();
     
 	recfifo.fifoclose();
-     pushMessage(fullChat, message, user);
+      chatVector.push_back(fullChat);
     for(int a=0; a <= chatVector.size(); a++) {
     sendfifo.openwrite();
     sendfifo.send(chatVector[a]);
@@ -55,33 +55,8 @@ while(1) {
 }
 
 
-void pushMessage(string fullChat, string& message, string& user) {
-string chatMessage;
-const string userDelineator = "&&";
-const string messageDelineator = "~~";
-  size_t userPos = fullChat.find_first_of(userDelineator);
-size_t messagePos = fullChat.find_first_of(messageDelineator);
-  while (userPos != string::npos || messagePos != string::npos) { 
-  if (userPos != string::npos) {
-    //message[userPos] = ""; 
-    if (userPos > messagePos) {
-    string user = fullChat.substr(messagePos+1, userPos-1);
-    }
-    userPos = fullChat.find_first_of(userDelineator, userPos+1); 
-    }
-     if (messagePos != string::npos) {
-         if (messagePos > userPos) {
-    message = fullChat.substr(userPos+1,messagePos-1);
-    }
-    //message[messagePos] = ""; 
-    messagePos = fullChat.find_first_of(messageDelineator, messagePos+1); 
-    }
-    chatMessage = user + ": " + message;
-    chatVector.push_back(chatMessage);
-  }
 
 
-}
 
 
 
