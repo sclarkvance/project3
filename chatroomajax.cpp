@@ -60,15 +60,16 @@ return 0;
 }
 
 void parseMessage(string& message) {
+	string user;
 const string userDelineator = "&&";
  const string messageDelineator = "~~";
    size_t userPos = message.find_first_of(userDelineator);
  size_t messagePos = message.find_first_of(messageDelineator);
    while (userPos != string::npos || messagePos != string::npos) { 
    if (userPos != string::npos) {
-     //message[userPos] = ""; 
+     message[userPos] = ""; 
      if (userPos > messagePos) {
-     string user = message.substr(messagePos+1, userPos-1);
+     user = message.substr(messagePos+1, userPos-1);
      }
      userPos = message.find_first_of(userDelineator, userPos+1); 
      }
@@ -76,7 +77,7 @@ const string userDelineator = "&&";
           if (messagePos > userPos) {
      message = message.substr(userPos+1,messagePos-1);
      }
-     //message[messagePos] = ""; 
+     message[messagePos] = ""; 
      messagePos = message.find_first_of(messageDelineator, messagePos+1); 
      }
       message = user + ": " + message;
