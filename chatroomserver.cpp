@@ -15,43 +15,39 @@
 
 using namespace std;
 
-void pushMessage(string, string&, string&); 
-
-
 /* Fifo names */
 string receive_fifo = "CRrequest";
 string send_fifo = "CRreply";
 
-
-  
-
 int main() {
-vector <string> chatVector;
+	vector<string> chatVector;
+	string user, message, fullChat;
+	
     // create the FIFOs for communication
-  Fifo recfifo(receive_fifo);
-  Fifo sendfifo(send_fifo);
+	Fifo recfifo(receive_fifo);
+	Fifo sendfifo(send_fifo);
 
-    string user, message, fullChat;
-    
+	while(1) {
+		cout << "Getting fifo" << endl;
 
-
-while(1) {
-
-  /* Get a message from a client */
-    recfifo.openread();
+		/* Get a message from a client */
+		recfifo.openread();
+		cout << "Open read" << endl;
     
-    fullChat = recfifo.recv();
+		fullChat = recfifo.recv();
+		cout << "Received: " << fullChat << endl;
     
-	recfifo.fifoclose();
-      chatVector.push_back(fullChat);
-    for(int a=0; a <= chatVector.size(); a++) {
-    sendfifo.openwrite();
-    sendfifo.send(chatVector[a]);
-    sendfifo.fifoclose();
-    }   
+		chatVector.push_back(fullChat);
+		
+		sendfifo.openwrite();
+		cout << "Open write" << endl;
     
+		for(int i=0; i < chatVector.size(); i++) {
+			sendfifo.send(chatVector[i]);
+		}   
     }
-
+	sendfifo.fifoclose();
+    recfifo.fifoclose();
 }
 
 

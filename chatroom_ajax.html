@@ -79,7 +79,7 @@ function addText() {
     document.chatForm.textInput.value = "";
 	
     // add to the bottom of the chat box
-    document.getElementById('chatBox').innerHTML += "<font color='red'>You: </font>" + inText+"<br />";
+    document.getElementById('message_response_area').innerHTML += "<font color='red'>You: </font>" + inText+"<br />";
     // force to bottom
     updateScroll();
 }
