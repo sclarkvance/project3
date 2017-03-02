@@ -19,7 +19,7 @@ if(navigator.appName == "Microsoft Internet Explorer") {
     XMLHttp = new XMLHttpRequest();
 }
 function getmessage () {
-     var message = document.getElementById('message').message;		     
+     var message = document.getElementById('message').value;		     
      if (message.length < 1) return;
 
     XMLHttp.open("GET", "/cgi-bin/vances_chatroomajax.cgi?"
@@ -117,7 +117,7 @@ Enter a message:
 <input message="message" type="text" id=message maxlength=140></td>
 
 <p>
-<input type="button" value="Submit" message="submit" onclick="javascript: addText(); javascript: validateMessage ()"/>
+<input type="button" value="Submit" message="submit" onclick="javascript: getmessage (); javascript: validateMessage ()"/>
 </p>
 
 

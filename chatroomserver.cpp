@@ -38,12 +38,15 @@ int main() {
 		cout << "Received: " << fullChat << endl;
     
 		chatVector.push_back(fullChat);
+
 		
 		sendfifo.openwrite();
 		cout << "Open write" << endl;
     
 		for(int i=0; i < chatVector.size(); i++) {
 			sendfifo.send(chatVector[i]);
+			cout << "Sending message " << i << endl;
+			cout << chatVector[i];
 		}   
     }
 	sendfifo.fifoclose();

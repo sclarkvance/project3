@@ -54,7 +54,7 @@ string message = **messagetext;
   sendfifo.fifoclose();
   string reply = parseMessage(results);
   cout << "Content-Type: text/plain\n\n";
-
+cout << user << ": " << message;
   cout << reply;
   }
   
