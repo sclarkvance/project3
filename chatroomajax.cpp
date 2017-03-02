@@ -19,7 +19,7 @@
 using namespace std;
 using namespace cgicc; // Needed for AJAX functions.
 
-void parseMessage(string&);
+string parseMessage(string);
 
 
 // fifo for communication
@@ -27,6 +27,7 @@ string receive_fifo = "CRreply";
 string send_fifo = "CRrequest";
 
 int main() {
+	cout << "test";
   Cgicc cgi;    // Ajax object
   char *cstr;
   // Create AJAX objects to recieve information from web page.
@@ -51,35 +52,31 @@ string message = **messagetext;
   string results = recfifo.recv();
   recfifo.fifoclose();
   sendfifo.fifoclose();
+  string reply = parseMessage(results);
   cout << "Content-Type: text/plain\n\n";
 
-  cout << results;
+  cout << reply;
   }
   
 return 0;
 }
 
-void parseMessage(string& message) {
+string parseMessage(string message) {
 	string user;
 const string userDelineator = "&&";
  const string messageDelineator = "~~";
    size_t userPos = message.find_first_of(userDelineator);
- size_t messagePos = message.find_first_of(messageDelineator);
-   while (userPos != string::npos || messagePos != string::npos) { 
+ size_t messagePos = message.find_first_of(messageDelineator); 
    if (userPos != string::npos) {
-     message[userPos] = ""; 
-     if (userPos > messagePos) {
-     user = message.substr(messagePos+1, userPos-1);
-     }
-     userPos = message.find_first_of(userDelineator, userPos+1); 
+     //message[userPos] = ""; 
+     user = message.substr(2, userPos-1);
+     //userPos = message.find_first_of(userDelineator, userPos+1); 
      }
       if (messagePos != string::npos) {
-          if (messagePos > userPos) {
-     message = message.substr(userPos+1,messagePos-1);
-     }
-     message[messagePos] = ""; 
+     message = message.substr(userPos+2,messagePos-1);
+     //message[messagePos] = ""; 
      messagePos = message.find_first_of(messageDelineator, messagePos+1); 
      }
-      message = user + ": " + message;
-}	
+      message = user + ": " + message;	
+	  return message;
 }
