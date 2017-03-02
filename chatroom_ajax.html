@@ -18,18 +18,7 @@ if(navigator.appName == "Microsoft Internet Explorer") {
 } else {
     XMLHttp = new XMLHttpRequest();
 }
-function getmessage () {
-     var message = document.getElementById('message').value;		     
-     if (message.length < 1) return;
 
-    XMLHttp.open("GET", "/cgi-bin/vances_chatroomajax.cgi?"
-						 + "&message=" + message
-						 ,true);
-    XMLHttp.onreadystatechange=function() {
-    	document.getElementById('message_response_area').innerHTML = XMLHttp.responseText;
-    }
-	XMLHttp.send(null);
-}
 
 // Things to do at page load
 function pageInit() {
@@ -47,16 +36,22 @@ function makeReadOnly() {
   } 
   
 function getuser () {
+var message = document.getElementById('message').value;
 	var user = document.getElementById('user').value;
 	if (user.length < 1) return;
+	if (message.length < 1) return;
 	
 	XMLHttp.open("GET", "/cgi-bin/vances_chatroomajax.cgi?"
 						+ "&user=" + user
+						+ "&message=" + message 
 						,true);
 						 XMLHttp.onreadystatechange=function() {
     	document.getElementById('user_response_area').innerHTML = XMLHttp.responseText;
     }
 	XMLHttp.send(null);
+	
+	// Clear the input text
+    document.getElementById('message_response_area').textInput.value = "";
 }
 
 // Respond to send button
@@ -105,7 +100,7 @@ document.getElementById("user_response_area").value="";
 Please enter your desired username: 
 <input user="user" type="text" id=user>
 <p>
-<input type="button" onclick="javascript: getuser (); javascript: makeReadOnly ();" user="submit" value="Submit" />
+<input type="button" onclick="javascript: makeReadOnly ();" user="submit" value="Submit" />
 </p>
 
 
@@ -117,7 +112,7 @@ Enter a message:
 <input message="message" type="text" id=message maxlength=140></td>
 
 <p>
-<input type="button" value="Submit" message="submit" onclick="javascript: getmessage (); javascript: validateMessage ()"/>
+<input type="button" value="Submit" message="submit" onclick="javascript: getuser (); javascript: validateMessage ()"/>
 </p>
 
 

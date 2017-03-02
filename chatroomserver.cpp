@@ -28,6 +28,7 @@ int main() {
 	Fifo sendfifo(send_fifo);
 
 	while(1) {
+		fullChat = "";
 		cout << "Getting fifo" << endl;
 
 		/* Get a message from a client */
@@ -36,6 +37,8 @@ int main() {
     
 		fullChat = recfifo.recv();
 		cout << "Received: " << fullChat << endl;
+		
+		if (fullChat.length() > 1) {
     
 		chatVector.push_back(fullChat);
 
@@ -48,9 +51,11 @@ int main() {
 			cout << "Sending message " << i << endl;
 			cout << chatVector[i];
 		}   
-    }
-	sendfifo.fifoclose();
+		sendfifo.fifoclose();
     recfifo.fifoclose();
+		}
+    }
+	
 }
 
 

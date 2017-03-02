@@ -38,7 +38,6 @@ int main() {
   Fifo recfifo(receive_fifo);
   Fifo sendfifo(send_fifo);
   
-while(1) {
 
   // Call server to get results
   string user = **username;
@@ -56,13 +55,12 @@ string message = **messagetext;
   cout << "Content-Type: text/plain\n\n";
 cout << user << ": " << message;
   cout << reply;
-  }
   
 return 0;
 }
 
 string parseMessage(string message) {
-	string user;
+	string user, reply;
 const string userDelineator = "&&";
  const string messageDelineator = "~~";
    size_t userPos = message.find_first_of(userDelineator);
@@ -77,6 +75,6 @@ const string userDelineator = "&&";
      //message[messagePos] = ""; 
      messagePos = message.find_first_of(messageDelineator, messagePos+1); 
      }
-      message = user + ": " + message;	
+      reply = user + ": " + message;	
 	  return message;
 }
