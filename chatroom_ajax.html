@@ -40,19 +40,6 @@ var message = document.getElementById('message').value;
 	var user = document.getElementById('user').value;
 	if (user.length < 1) return;
 	if (message.length < 1) return;
-	
-	XMLHttp.open("GET", "/cgi-bin/vances_chatroomajax.cgi?"
-						+ "&user=" + user
-						+ "&message=" + message 
-						,true);
-						 XMLHttp.onreadystatechange=function() {
-						 // Clear the input text
-    //document.getElementById('message_response_area').textInput.value = "";
-    	document.getElementById('boxtext').innerHTML = XMLHttp.responseText;
-    }
-	XMLHttp.send(null);
-	
-	
 }
 
 
@@ -68,7 +55,23 @@ function deleteUser() {
 document.getElementById("user_response_area").value="";
 }
 
+function getChats() {
+XMLHttp.open("GET", "/cgi-bin/vances_chatroomajax.cgi?"
+						+ "&user=" + user
+						+ "&message=" + message 
+						,true);
+						 XMLHttp.onreadystatechange=function() {
+						 // Clear the input text
+    //document.getElementById('message_response_area').textInput.value = "";
+    	document.getElementById('boxtext').innerHTML = XMLHttp.responseText;
+    }
+	XMLHttp.send(null);
+}
 
+var intVar;
+function AutoRefresh() {
+	intVar = setInterval(function(){ getChats()}, 2000);
+}
 
 </script>
 <body onunload="deleteUser()">
