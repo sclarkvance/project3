@@ -27,7 +27,7 @@ string receive_fifo = "CRreply";
 string send_fifo = "CRrequest";
 
 int main() {
-	string finalmessage;
+	string finalmessage, results;
 	cout << "test";
   Cgicc cgi;    // Ajax object
   char *cstr;
@@ -48,13 +48,19 @@ string message = **messagetext;
   sendfifo.send(ajaxmessage);
     sendfifo.fifoclose();
   /* Get a message from a server */
+   cout << "Content-Type: text/plain\n\n";
+	
   recfifo.openread();
-  string results = recfifo.recv();
-  recfifo.fifoclose();
+  do {
+  results = recfifo.recv();
+
 finalmessage = parseMessage(results);
-  cout << "Content-Type: text/plain\n\n";
+ 
 cout<< "<p>" << finalmessage << "</p>";
-  
+  }
+  while (results.find("<!--$END-->") == string::npos);
+
+    recfifo.fifoclose();
 return 0;
 }
 
@@ -75,6 +81,12 @@ const string userDelineator = "&&";
      //message[messagePos] = ""; 
      messagePos = message.find_first_of(messageDelineator, messagePos+1); 
      }
+	 if(message.find("<!--$END-->") == string::npos) {
       message = user + ": " + message;	
 	  return message;
+	 }
+	 else {
+		 message = "";
+		 return message;
+	 }
 }
