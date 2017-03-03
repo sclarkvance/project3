@@ -43,14 +43,16 @@ int main() {
 		chatVector.push_back(fullChat);
 
 		
-		sendfifo.openwrite();
-		cout << "Open write" << endl;
-    
+		
+    sendfifo.openwrite();
 		for(int i=0; i < chatVector.size(); i++) {
+			
+		cout << "Open write" << endl;
 			sendfifo.send(chatVector[i]);
 			cout << "Sending message " << i << endl;
 			cout << chatVector[i];
 		}   
+		sendfifo.send("<!--$END-->");
 		sendfifo.fifoclose();
     recfifo.fifoclose();
 		}
