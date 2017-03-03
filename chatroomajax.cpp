@@ -27,6 +27,7 @@ string receive_fifo = "CRreply";
 string send_fifo = "CRrequest";
 
 int main() {
+	string finalmessage;
 	cout << "test";
   Cgicc cgi;    // Ajax object
   char *cstr;
@@ -45,36 +46,35 @@ string message = **messagetext;
   string ajaxmessage =  "&&"+user+"~~"+message;
   sendfifo.openwrite();
   sendfifo.send(ajaxmessage);
-  
+    sendfifo.fifoclose();
   /* Get a message from a server */
   recfifo.openread();
   string results = recfifo.recv();
   recfifo.fifoclose();
-  sendfifo.fifoclose();
-  string reply = parseMessage(results);
+finalmessage = parseMessage(results);
   cout << "Content-Type: text/plain\n\n";
-cout << user << ": " << message;
-  cout << reply;
+cout<< "<p>" << finalmessage << "</p>";
   
 return 0;
 }
 
+
 string parseMessage(string message) {
-	string user, reply;
+	string user;
 const string userDelineator = "&&";
  const string messageDelineator = "~~";
    size_t userPos = message.find_first_of(userDelineator);
  size_t messagePos = message.find_first_of(messageDelineator); 
    if (userPos != string::npos) {
      //message[userPos] = ""; 
-     user = message.substr(2, userPos-1);
+     user = message.substr(2, messagePos-2);
      //userPos = message.find_first_of(userDelineator, userPos+1); 
      }
       if (messagePos != string::npos) {
-     message = message.substr(userPos+2,messagePos-1);
+     message = message.substr(messagePos+2,userPos-2);
      //message[messagePos] = ""; 
      messagePos = message.find_first_of(messageDelineator, messagePos+1); 
      }
-      reply = user + ": " + message;	
+      message = user + ": " + message;	
 	  return message;
 }

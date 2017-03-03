@@ -46,38 +46,15 @@ var message = document.getElementById('message').value;
 						+ "&message=" + message 
 						,true);
 						 XMLHttp.onreadystatechange=function() {
-    	document.getElementById('user_response_area').innerHTML = XMLHttp.responseText;
+						 // Clear the input text
+    //document.getElementById('message_response_area').textInput.value = "";
+    	document.getElementById('boxtext').innerHTML = XMLHttp.responseText;
     }
 	XMLHttp.send(null);
 	
-	// Clear the input text
-    document.getElementById('message_response_area').textInput.value = "";
+	
 }
 
-// Respond to send button
-function addText() {
-    // Get the text from the text box
-    var inText = document.chatForm.textInput.value;
-    
-    // Make sure something is there
-    if (inText.length < 1) return;
-	
-	XMLHttp.open("GET", "/cgi-bin/vances_chatroomajax.cgi?"
-						+ "&message=" + message
-						,true);
-						 XMLHttp.onreadystatechange=function() {
-    	document.getElementById('message_response_area').innerHTML = XMLHttp.responseText;
-    }
-	XMLHttp.send(null);
-    
-    // Clear the input text
-    document.chatForm.textInput.value = "";
-	
-    // add to the bottom of the chat box
-    document.getElementById('Messagebox').innerHTML += "<font color='red'>You: </font>" + inText+"<br />";
-    // force to bottom
-    updateScroll();
-}
 
 function validateMessage() {
     var message = document.getElementById("message").value;
@@ -120,6 +97,9 @@ Enter a message:
 </div>
 
 <div class = "Messagebox">
+<div id = "boxtext">
+
+</div>
 </div>
 
 
