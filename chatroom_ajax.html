@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Chatroom</title>
+<title>Chat Room</title>
 <META AUTHOR="Spalding Vance & Miku Fukuyama">
 </head>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
@@ -22,6 +22,7 @@ if(navigator.appName == "Microsoft Internet Explorer") {
 
 // Things to do at page load
 function pageInit() {
+	AutoRefresh();
 
 }
 
@@ -40,6 +41,19 @@ var message = document.getElementById('message').value;
 	var user = document.getElementById('user').value;
 	if (user.length < 1) return;
 	if (message.length < 1) return;
+	
+	XMLHttp.open("GET", "/cgi-bin/vances_chatroomajax.cgi?"
+						+ "&user=" + user
+						+ "&message=" + message 
+						,true);
+						 XMLHttp.onreadystatechange=function() {
+						 // Clear the input text
+    //document.getElementById('message_response_area').textInput.value = "";
+    	document.getElementById('boxtext').innerHTML = XMLHttp.responseText;
+    }
+	XMLHttp.send(null);
+	
+	
 }
 
 
@@ -55,8 +69,9 @@ function deleteUser() {
 document.getElementById("user_response_area").value="";
 }
 
+
 function getChats() {
-XMLHttp.open("GET", "/cgi-bin/vances_chatroomajax.cgi?"
+	XMLHttp.open("GET", "/cgi-bin/vances_chatroomajax.cgi?"
 						+ "&user=" + user
 						+ "&message=" + message 
 						,true);
@@ -74,7 +89,7 @@ function AutoRefresh() {
 }
 
 </script>
-<body onunload="deleteUser()">
+<body onload="pageInit()">
 <h1>Chatroom</h1>
 <hr>
 Please enter your desired username: 
