@@ -8,7 +8,7 @@
 <head>
   <!-- $Id: chatroom_ajax.html,v 1.6 skon Exp $ -->
 <link rel="stylesheet" type="text/css" href="chatroom_ajax.css">
-  <title>GNU cgicc Chatroom</title>
+<title>GNU cgicc Chatroom</title>
 </head>
 
 <script type = "text/javascript">
@@ -20,15 +20,24 @@ if(navigator.appName == "Microsoft Internet Explorer") {
 }
 
 
+
+// Table of commands
+// 1 = login
+// 2 = send
+// 3 = request update
+// 4 = end
+
+
+
+
 // Things to do at page load
 function pageInit() {
 	AutoRefresh();
-
 }
 
 // Function to force scrollable window at bottom
 function updateScroll(){
-    var element = document.getElementById("message_response_area");
+    var element = document.getElementById("boxtext");
     element.scrollTop = element.scrollHeight;
 }
 
@@ -36,7 +45,7 @@ function makeReadOnly() {
     document.getElementById('user').readOnly = true;
   } 
   
-function getuser () {
+function getUser () {
 var message = document.getElementById('message').value;
 	var user = document.getElementById('user').value;
 	if (user.length < 1) return;
@@ -46,14 +55,15 @@ var message = document.getElementById('message').value;
 						+ "&user=" + user
 						+ "&message=" + message 
 						,true);
-						 XMLHttp.onreadystatechange=function() {
-						 // Clear the input text
-    //document.getElementById('message_response_area').textInput.value = "";
-    	document.getElementById('boxtext').innerHTML = XMLHttp.responseText;
+	XMLHttp.onreadystatechange=function() {
+		// Clear the input text
+		document.getElementById('message').value = "";
+		// add to the bottom of the chat box
+		document.getElementById('boxtext').innerHTML = XMLHttp.responseText;
+		// force to bottom
+		updateScroll();
     }
 	XMLHttp.send(null);
-	
-	
 }
 
 
@@ -66,7 +76,7 @@ function validateMessage() {
 }
 
 function deleteUser() {
-document.getElementById("user_response_area").value="";
+	document.getElementById("user_response_area").value="";
 }
 
 
@@ -76,9 +86,7 @@ function getChats() {
 						+ "&message=" + message 
 						,true);
 						 XMLHttp.onreadystatechange=function() {
-						 // Clear the input text
-    //document.getElementById('message_response_area').textInput.value = "";
-    	document.getElementById('boxtext').innerHTML = XMLHttp.responseText;
+    	document.getElementById('message').innerHTML = XMLHttp.responseText;
     }
 	XMLHttp.send(null);
 }
@@ -87,10 +95,10 @@ var intVar;
 function AutoRefresh() {
 	intVar = setInterval(function(){ getChats()}, 2000);
 }
-
+ 
 </script>
 <body onload="pageInit()">
-<h1>Chatroom</h1>
+<h1>Chat Room</h1>
 <hr>
 Please enter your desired username: 
 <input user="user" type="text" id=user>
@@ -107,7 +115,7 @@ Enter a message:
 <input message="message" type="text" id=message maxlength=140></td>
 
 <p>
-<input type="button" value="Submit" message="submit" onclick="javascript: getuser (); javascript: validateMessage ()"/>
+<input type="button" value="Submit" message="submit" onclick="javascript: getUser (); javascript: validateMessage (); javascript: updateScroll;"/>
 </p>
 
 

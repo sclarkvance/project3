@@ -41,8 +41,6 @@ int main() {
 		if (fullChat.length() > 1) {
     
 		chatVector.push_back(fullChat);
-
-		
 		
     sendfifo.openwrite();
 		for(int i=0; i < chatVector.size(); i++) {
@@ -54,10 +52,9 @@ int main() {
 		}   
 		sendfifo.send("<!--$END-->");
 		sendfifo.fifoclose();
-    recfifo.fifoclose();
+		recfifo.fifoclose();
 		}
     }
-	
 }
 
 
