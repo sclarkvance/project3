@@ -57,9 +57,9 @@ var message = document.getElementById('message').value;
 						,true);
 	XMLHttp.onreadystatechange=function() {
 		// Clear the input text
-		document.getElementById('message').value = "";
+		document.getElementById("message").value = "";
 		// add to the bottom of the chat box
-		document.getElementById('boxtext').innerHTML = XMLHttp.responseText;
+		//document.getElementById("boxtext").innerHTML = XMLHttp.responseText;
 		// force to bottom
 		updateScroll();
     }
@@ -86,7 +86,7 @@ function getChats() {
 						+ "&message=" + message 
 						,true);
 						 XMLHttp.onreadystatechange=function() {
-    	document.getElementById('message').innerHTML = XMLHttp.responseText;
+    	document.getElementById('boxtext').innerHTML = XMLHttp.responseText;
     }
 	XMLHttp.send(null);
 }
@@ -115,7 +115,7 @@ Enter a message:
 <input message="message" type="text" id=message maxlength=140></td>
 
 <p>
-<input type="button" value="Submit" message="submit" onclick="javascript: getUser (); javascript: validateMessage (); javascript: updateScroll;"/>
+<input type="button" value="Submit" message="submit" onclick="javascript: validateMessage (); javascript: getUser (); javascript: updateScroll;"/>
 </p>
 
 

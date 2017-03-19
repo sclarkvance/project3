@@ -55,8 +55,9 @@ string message = **messagetext;
   results = recfifo.recv();
 
 finalmessage = parseMessage(results);
- 
+ if (finalmessage != "") {
 cout<< "<p>" << finalmessage << "</p>";
+}
   }
   while (results.find("<!--$END-->") == string::npos);
 
