@@ -26,7 +26,7 @@ int main() {
     // create the FIFOs for communication
 	Fifo recfifo(receive_fifo);
 	Fifo sendfifo(send_fifo);
-
+//while loop to get results from ajax
 	while(1) {
 		fullChat = "";
 		cout << "Getting fifo" << endl;
@@ -37,12 +37,13 @@ int main() {
     
 		fullChat = recfifo.recv();
 		cout << "Received: " << fullChat << endl;
-		
+		//if statement to only push back chats with text
 		if (fullChat.length() > 1) {
     
 		chatVector.push_back(fullChat);
 		
     sendfifo.openwrite();
+    //for loop to send contents of vector to the ajax
 		for(int i=0; i < chatVector.size(); i++) {
 			
 		cout << "Open write" << endl;

@@ -28,7 +28,6 @@ string send_fifo = "CRrequest";
 
 int main() {
 	string finalmessage, results;
-	cout << "test";
   Cgicc cgi;    // Ajax object
   char *cstr;
   // Create AJAX objects to recieve information from web page.
@@ -51,10 +50,12 @@ string message = **messagetext;
    cout << "Content-Type: text/plain\n\n";
 	
   recfifo.openread();
+  //do-while to loop until end message is sent
   do {
   results = recfifo.recv();
 
 finalmessage = parseMessage(results);
+//if statement to make sure final message has text
  if (finalmessage != "") {
 cout<< "<p>" << finalmessage << "</p>";
 }
@@ -72,17 +73,18 @@ const string userDelineator = "&&";
  const string messageDelineator = "~~";
    size_t userPos = message.find_first_of(userDelineator);
  size_t messagePos = message.find_first_of(messageDelineator); 
+ //if statement to take out delineators from user
    if (userPos != string::npos) {
-     //message[userPos] = ""; 
-     user = message.substr(2, messagePos-2);
-     //userPos = message.find_first_of(userDelineator, userPos+1); 
+     user = message.substr(2, messagePos-2); 
      }
+     //if statement to take out delineators from message
       if (messagePos != string::npos) {
      message = message.substr(messagePos+2,userPos-2);
-     //message[messagePos] = ""; 
      messagePos = message.find_first_of(messageDelineator, messagePos+1); 
      }
-	 if(message.find("<!--$END-->") == string::npos) {
+     //if statement to prevent end message being sent and to prevent blank messages 
+     //showing up as a colon
+	 if(message.find("<!--$END-->") == string::npos && message != "") {
       message = user + ": " + message;	
 	  return message;
 	 }

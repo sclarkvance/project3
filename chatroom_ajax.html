@@ -41,16 +41,15 @@ function updateScroll(){
     element.scrollTop = element.scrollHeight;
 }
 
+//make user box read only
 function makeReadOnly() {
     document.getElementById('user').readOnly = true;
   } 
   
+  // get user and message from input forms
 function getUser () {
 var message = document.getElementById('message').value;
 	var user = document.getElementById('user').value;
-	if (user.length < 1) return;
-	if (message.length < 1) return;
-	
 	XMLHttp.open("GET", "/cgi-bin/vances_chatroomajax.cgi?"
 						+ "&user=" + user
 						+ "&message=" + message 
@@ -58,15 +57,13 @@ var message = document.getElementById('message').value;
 	XMLHttp.onreadystatechange=function() {
 		// Clear the input text
 		document.getElementById("message").value = "";
-		// add to the bottom of the chat box
-		//document.getElementById("boxtext").innerHTML = XMLHttp.responseText;
 		// force to bottom
 		updateScroll();
     }
 	XMLHttp.send(null);
 }
 
-
+//make sure message doesn't contain the delineators
 function validateMessage() {
     var message = document.getElementById("message").value;
     if (message.indexOf('&&') > -1)
@@ -75,16 +72,9 @@ function validateMessage() {
 }
 }
 
-function deleteUser() {
-	document.getElementById("user_response_area").value="";
-}
-
-
+//take chats from the chat vector and output them
 function getChats() {
-	XMLHttp.open("GET", "/cgi-bin/vances_chatroomajax.cgi?"
-						+ "&user=" + user
-						+ "&message=" + message 
-						,true);
+	XMLHttp.open("GET", "/cgi-bin/vances_chatroomajax.cgi?");
 						 XMLHttp.onreadystatechange=function() {
     	document.getElementById('boxtext').innerHTML = XMLHttp.responseText;
     }
@@ -92,8 +82,9 @@ function getChats() {
 }
 
 var intVar;
+//function to refresh chats every second
 function AutoRefresh() {
-	intVar = setInterval(function(){ getChats()}, 2000);
+	intVar = setInterval(function(){ getChats()}, 1000);
 }
  
 </script>
@@ -101,9 +92,9 @@ function AutoRefresh() {
 <h1>Chat Room</h1>
 <hr>
 Please enter your desired username: 
-<input user="user" type="text" id=user>
+<input user="user" type="text" id="user">
 <p>
-<input type="button" onclick="javascript: makeReadOnly ();" user="submit" value="Submit" />
+<input type="button" onclick="javascript: makeReadOnly ();" user="Submit" value="Submit" />
 </p>
 
 
@@ -112,10 +103,10 @@ Please enter your desired username:
 
 <hr>
 Enter a message: 
-<input message="message" type="text" id=message maxlength=140></td>
+<input message="message" type="text" id="message" maxlength=140></td>
 
 <p>
-<input type="button" value="Submit" message="submit" onclick="javascript: validateMessage (); javascript: getUser (); javascript: updateScroll;"/>
+<input type="button" value="Submit" message="Submit" onclick="javascript: validateMessage (); javascript: getUser (); javascript: updateScroll;"/>
 </p>
 
 
