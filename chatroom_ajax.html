@@ -19,36 +19,25 @@ if(navigator.appName == "Microsoft Internet Explorer") {
     XMLHttp = new XMLHttpRequest();
 }
 
-
-
-// Table of commands
-// 1 = login
-// 2 = send
-// 3 = request update
-// 4 = end
-
-
-
-
 // Things to do at page load
 function pageInit() {
 	AutoRefresh();
 }
 
 // Function to force scrollable window at bottom
-function updateScroll(){
-    var element = document.getElementById("boxtext");
-    element.scrollTop = element.scrollHeight;
+function updateScroll() {
+    	var element = document.getElementById("boxtext");
+    	element.scrollTop = element.scrollHeight;
 }
 
-//make user box read only
+// Make user box read only
 function makeReadOnly() {
-    document.getElementById('user').readOnly = true;
-  } 
+    	document.getElementById('user').readOnly = true;
+} 
   
-  // get user and message from input forms
+// Get user and message from input forms
 function getUser () {
-var message = document.getElementById('message').value;
+	var message = document.getElementById('message').value;
 	var user = document.getElementById('user').value;
 	XMLHttp.open("GET", "/cgi-bin/vances_chatroomajax.cgi?"
 						+ "&user=" + user
@@ -57,32 +46,32 @@ var message = document.getElementById('message').value;
 	XMLHttp.onreadystatechange=function() {
 		// Clear the input text
 		document.getElementById("message").value = "";
-		// force to bottom
+		// Force to bottom
 		updateScroll();
-    }
+    	}
 	XMLHttp.send(null);
 }
 
-//make sure message doesn't contain the delineators
+// Make sure message doesn't contain the delineators
 function validateMessage() {
-    var message = document.getElementById("message").value;
-    if (message.indexOf('&&') > -1)
-{
-  alert("Message may not contain '&&' ");
-}
+	var message = document.getElementById("message").value;
+	if (message.indexOf('&&') > -1)
+	{
+		alert("Message may not contain '&&' ");
+	}
 }
 
-//take chats from the chat vector and output them
+// Take chats from the chat vector and output them
 function getChats() {
 	XMLHttp.open("GET", "/cgi-bin/vances_chatroomajax.cgi?");
-						 XMLHttp.onreadystatechange=function() {
-    	document.getElementById('boxtext').innerHTML = XMLHttp.responseText;
-    }
+	XMLHttp.onreadystatechange=function() {
+    		document.getElementById('boxtext').innerHTML = XMLHttp.responseText;
+    	}
 	XMLHttp.send(null);
 }
 
 var intVar;
-//function to refresh chats every second
+// Function to refresh chats every second
 function AutoRefresh() {
 	intVar = setInterval(function(){ getChats()}, 1000);
 }
