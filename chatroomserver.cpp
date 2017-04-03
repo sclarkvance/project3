@@ -28,8 +28,7 @@ string sendMessage(string);
 // Postcondition:
 
 int main() {
-	vector<string> chatVector;
-	string user, message, fullChat;
+	string message, finalMessage;
 	
     // Create the FIFOs for communication
 	Fifo recfifo(receive_fifo);
@@ -38,12 +37,12 @@ int main() {
 	// Get results from AJAX
 	while(1) {
 		getMessage(message);
-		sendMessage(fullChat);
+		sendMessage(finalMessage);
     }
 }
 
 string getMessage(string) {
-	fullChat = "";
+	string fullChat = "";
 	cout << "Getting fifo" << endl;
 	/* Get a message from a client */
 	recfifo.openread();
@@ -53,19 +52,19 @@ string getMessage(string) {
 }
 
 string sendMessage(string) {
+	vector<string> chatVector;
+	string fullChat;
 	// Make sure chats have text
-		if (fullChat.length() > 1) {
-			chatVector.push_back(fullChat);
-		
-			sendfifo.openwrite();
-			//for loop to send contents of vector to the ajax
-			for(int i=0; i < chatVector.size(); i++) {
-			
-				cout << "Open write" << endl;
-				sendfifo.send(chatVector[i]);
-				cout << "Sending message " << i << endl;
-				cout << chatVector[i];
-			}   
+	if (fullChat.length() > 1) {
+		chatVector.push_back(fullChat);
+		sendfifo.openwrite();
+		// for loop to send contents of vector to the ajax
+		for(int i=0; i < chatVector.size(); i++) {
+			cout << "Open write" << endl;
+			sendfifo.send(chatVector[i]);
+			cout << "Sending message " << i << endl;
+			cout << chatVector[i];
+		}   
 		sendfifo.send("<!--$END-->");
 		sendfifo.fifoclose();
 		recfifo.fifoclose();
