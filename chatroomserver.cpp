@@ -19,6 +19,14 @@ using namespace std;
 string receive_fifo = "CRrequest";
 string send_fifo = "CRreply";
 
+string getMessage(string);
+// Precondition:
+// Postcondition:
+
+string sendMessage(string);
+// Precondition:
+// Postcondition:
+
 int main() {
 	vector<string> chatVector;
 	string user, message, fullChat;
@@ -29,15 +37,23 @@ int main() {
 	
 	// Get results from AJAX
 	while(1) {
-		fullChat = "";
-		cout << "Getting fifo" << endl;
-		/* Get a message from a client */
-		recfifo.openread();
-		cout << "Open read" << endl;
-   
-		fullChat = recfifo.recv();
-		cout << "Received: " << fullChat << endl;
-		// Make sure chats have text
+		getMessage(message);
+		sendMessage(fullChat);
+    }
+}
+
+string getMessage(string) {
+	fullChat = "";
+	cout << "Getting fifo" << endl;
+	/* Get a message from a client */
+	recfifo.openread();
+	cout << "Open read" << endl;   
+	fullChat = recfifo.recv();
+	cout << "Received: " << fullChat << endl;
+}
+
+string sendMessage(string) {
+	// Make sure chats have text
 		if (fullChat.length() > 1) {
 			chatVector.push_back(fullChat);
 		
@@ -54,14 +70,5 @@ int main() {
 		sendfifo.fifoclose();
 		recfifo.fifoclose();
 		}
-    }
+		
 }
-
-
-
-
-
-
-
-
-

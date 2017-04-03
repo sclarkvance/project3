@@ -1,13 +1,12 @@
 var XMLHttp;
 
-if(navigator.appName == "Microsoft Internet Explorer") {
-    XMLHttp = new ActiveXObject("Microsoft.XMLHTTP");
-} else {
-    XMLHttp = new XMLHttpRequest();
-}
-
 // Things to do at page load
 function pageInit() {
+	if(navigator.appName == "Microsoft Internet Explorer") {
+    XMLHttp = new ActiveXObject("Microsoft.XMLHTTP");
+	} else {
+    XMLHttp = new XMLHttpRequest();
+}
 	AutoRefresh();
 }
 
