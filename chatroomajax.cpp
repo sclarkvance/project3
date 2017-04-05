@@ -47,27 +47,31 @@ int main() {
 	string ajaxMessage =  "&&"+user+"~~"+message; // Insert delineators
 	sendfifo.openwrite();
 	sendfifo.send(ajaxMessage);
-    sendfifo.fifoclose();
     }
 	/* Get a message from a server */
+	recfifo.openread();
+	
 	cout << "Content-Type: text/plain\n\n";
 	
-	recfifo.openread();
+	
 	// Get results up to end message
 	do {
 		results = recfifo.recv();
 		finalMessage = parseMessage(results);
 		// Make sure final message has text
+		cout << "parsed";
 		if (finalMessage != "") {
 			cout << "<p>" << finalMessage << "</p>";
 		}
 	} while (results.find("<!--$END-->") == string::npos);
+	sendfifo.fifoclose();
 	recfifo.fifoclose();
 	
 	return 0;
 }
 
 string parseMessage(string message) {
+cout << "yah";
 	string user;
 	string finalMessage;
 	const string userDelineator = "&&";
@@ -91,7 +95,7 @@ string parseMessage(string message) {
 		finalMessage = user + ": " + message;	
 		return finalMessage;
 	} else {
-		finalMessage = "";
+		//finalMessage = "";
 		return finalMessage;
 	}
 }
