@@ -1,21 +1,24 @@
 <html>
 <head>
-<title>Chat Room</title>
-<META AUTHOR="Spalding Vance & Miku Fukuyama">
+	<title>Chat Room</title>
+	<META AUTHOR="Spalding Vance & Miku Fukuyama">
 </head>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-
 <head>
-  <!-- $Id: chatroom_ajax.html,v 1.6 skon Exp $ -->
-<link rel="stylesheet" type="text/css" href="chatroom_ajax.css">
-<script type="text/javascript" src="chatroomjs.js"></script>
-<title>GNU cgicc Chatroom</title>
+	<!-- $Id: chatroom_ajax.html,v 1.6 skon Exp $ -->
+	<link rel="stylesheet" type="text/css" href="chatroom_ajax.css">
+	<script type="text/javascript" src="chatroomjs.js"></script>
+	<title>GNU cgicc Chatroom</title>
 </head>
 
-
 <body onload="pageInit()">
+	<h1>Chat Room</h1>
+	<p>Please enter your desired username:</p>
+	<input user="user" type="text1" id="user" value="" placeholder="username">
+	<input type="button" onclick='javascript: validateMessage ("user");' user="Submit" value="Submit"; />
 
 
+<<<<<<< HEAD
 
 <h1>Chat Room</h1>
 
@@ -66,6 +69,39 @@ Enter a message:
 
 
 
+=======
+	<div id = "user_response_area">
+	</div>
+	
+	<div class = "MessageboxRoom">
+	<h2>Chat Room</h2>
+	<div id = "roomBoxText">
+	</div>
+	</div>
+
+	<p>Enter a message:</p> 
+	<input type="text2" id="roomMessage" value="" placeholder="message" maxlength=140></td>
+	<input type="button" value="Submit" message="Submit" onclick='javascript: validateMessage ("roomMessage"); javascript: getUser ("roomMessage"); javascript: updateScroll;'/>
+
+	<div class = "MessageboxDirect">
+	<h2>Direct Chat</h2>
+	<div id = "directBoxText">
+	</div>
+	</div>
+
+	<p> Enter a message:</p>
+	<input type="text2" id="directMessage" placeholder="message" value="" maxlength=140></td>
+	<input type="button" value="Submit" message="Submit" onclick='javascript: validateMessage("directMessage"); javascript: getUser ("directMessage"); javascript: updateScroll;'/>
+
+	<h3 class = "chatList">Currently online</h3>
+	<nav>
+		<ul id = "user list">
+			<li> test person 1 </li>
+			<li> test bitch 2 </li>
+			<li> test bitch 3 </li>
+		</ul>
+	</nav>
+>>>>>>> f04e29c57f9466fc26da6691e1df80f25fafda4a
 
 </body>
 	

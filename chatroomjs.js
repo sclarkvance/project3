@@ -44,9 +44,9 @@ function getUser (chatType) {
 		document.getElementById(chatType).value = "";
 		// Force to bottom
 		//updateScroll();
+		cgiFlag = false;
     	}
     	}
-    	cgiFlag = false;
 	XMLHttp.send(null);   
 	} 	
 	makeReadOnly();
@@ -69,9 +69,9 @@ function getChats(chatType) {
 	XMLHttp.onreadystatechange=function() {
 	if (XMLHttp.readyState == 4) {
     		document.getElementById(chatType).innerHTML = XMLHttp.responseText;
-    	}
-    	}
     	cgiFlag = false;
+    	}
+    	}
 	XMLHttp.send(null);
 	}
 }
