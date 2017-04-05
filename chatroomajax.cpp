@@ -107,5 +107,9 @@ string parseMessage(string message) {
 }
 
 void getUserList() {
-
+recfifo.openread();
+while (user.find("<!--$END-->") == string::npos && user != "") {
+cout << "<li>" << recfifo.recv() << "</li>";
+}
+recfifo.fifoclose();
 }

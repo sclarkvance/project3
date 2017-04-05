@@ -53,6 +53,8 @@ int main() {
 		fullChat = recfifo.recv();
 		cout << "Received: " << fullChat << endl;
 		
+		recfifo.fifoclose();
+		
 		//if statement to only push back chats with text
 		if (fullChat.length() > 6) {
 		string chatType = fullChat.substr(fullChat.length()-13, fullChat.length());
@@ -112,7 +114,6 @@ sendfifo.openwrite();
 		}   
 		sendfifo.send("<!--$END-->");
 		sendfifo.fifoclose();
-		recfifo.fifoclose();
 }
 
 void checkVector(string user) {
