@@ -29,4 +29,30 @@ display: block;
 }
 .boxtext {
 	display: block;
+<<<<<<< HEAD
 }
+=======
+}
+
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+}
+
+.message_response_area {
+display: block;
+width
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</STYLE>
+>>>>>>> 7d415953b6c5f52188965931feebebc2ede9fc8e
