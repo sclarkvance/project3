@@ -105,3 +105,7 @@ string parseMessage(string message) {
 		return finalMessage;
 	}
 }
+
+void getUserList() {
+
+}

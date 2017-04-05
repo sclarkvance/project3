@@ -19,6 +19,7 @@ void buildVector(string);
 void buildMap(string);
 vector<string> indexSearch(string);
 void sendVector(vector<string>);
+void checkVector(string);
 
 /* Fifo names */
 string receive_fifo = "CRrequest";
@@ -32,11 +33,10 @@ const string messageDelineator = "~~";
 map<string, vector<string> > directChatMap;
 map<string, vector<string> >::iterator it;
 vector<string> chatVector;
+vector<string> onlineUsers;
 
 
 int main() {
-	
-
 	
 	string message, fullChat;
 	
@@ -115,4 +115,14 @@ sendfifo.openwrite();
 		recfifo.fifoclose();
 }
 
-
+void checkVector(string user) {
+int numOfUsers = onlineUsers.size();
+for (int i=0; i < numOfUsers; i++) {
+if (onlineUsers[i]==user) {
+return;
+}
+}
+if (onlineUsers[numOfUsers] != user) {
+onlineUsers.push_back(user);
+}
+}
