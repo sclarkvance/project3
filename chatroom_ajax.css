@@ -1,25 +1,70 @@
-body {
-background-color: lightblue;
+div.container {
+	width: 100%;
 }
 
+
 h1 {
-font-family: verdana;
+	font-family: lucida console;
 }
 
 input[type=text] {
-	width: 20%;
-	padding: 12 px 20 px;
-	margin: 8px 0;
+	width: 15%;
+	padding: 5 px 10 px;
+	margin: 4px 0;
+	display: inline-block;
+	border: 1px solic #ccc;
 	box-sizing: border-box;
-	border: none;
-	background-color: #3CBC8D;
+}
+
+input[type=button] {
+	width: 5%;
+	background-color: #4CAf50;
 	color: white;
+	padding: 5px 10px;
+	margin: 2px 0;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+input[type=button]:hover {
+	background-color: #45a049;
+}
+
+nav {
+	float: left;
+	max-width: 160px;
+	margin: 0;
+	padding: 1em;
+}
+
+nav ul {
+	list-style-type: none;
+	padding: 0;
+}
+
+nav ul a {
+	text-decoration: none;
+}
+
+h2{
+    text-align: center;
+    margin-top: -10px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 15px;
+}
+
+h2 span{
+    background-color: white;
 }
 
 .Messagebox {
+margin-left: 170 px;
 display: block;
-    width:400px;
-    height:400px;
+    width: 30%;
+    height: 200px;
+    float: left;
     font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif;
     font-size: 82%;
     padding:20px;
@@ -27,32 +72,15 @@ display: block;
     border-radius:8px;
     overflow:scroll;
 }
-.boxtext {
-	display: block;
-<<<<<<< HEAD
-}
-=======
-}
 
-
-table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
+.two {
+    margin-left: 30%;
+    width: 30%;
+    height: 200px;
+     font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif;
+    font-size: 82%;
+    padding:20px;
+    border:5px solid blue;
+    border-radius:8px;
+    overflow:scroll;
 }
-
-.message_response_area {
-display: block;
-width
-}
-
-td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-}
-
-tr:nth-child(even) {
-    background-color: #dddddd;
-}
-</STYLE>
->>>>>>> 7d415953b6c5f52188965931feebebc2ede9fc8e
