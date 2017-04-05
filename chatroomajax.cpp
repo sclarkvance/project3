@@ -27,6 +27,11 @@ string parseMessage(string);
 string receive_fifo = "CRreply";
 string send_fifo = "CRrequest";
 
+	// Create the FIFOs for communication
+	Fifo recfifo(receive_fifo);
+	Fifo sendfifo(send_fifo);
+  
+
 int main() {
 	string results, finalMessage;
 	Cgicc cgi; // AJAX object
@@ -37,10 +42,7 @@ int main() {
 	form_iterator messageText = cgi.getElement("message");
 	form_iterator chatType = cgi.getElement("chatType");
 
-	// Create the FIFOs for communication
-	Fifo recfifo(receive_fifo);
-	Fifo sendfifo(send_fifo);
-  
+
 	// Call server to get results
 	string user = **username;
 	string message = **messageText;
@@ -107,9 +109,11 @@ string parseMessage(string message) {
 }
 
 void getUserList() {
+string user;
 recfifo.openread();
 while (user.find("<!--$END-->") == string::npos && user != "") {
-cout << "<li>" << recfifo.recv() << "</li>";
+user = recfifo.recv();
+cout << "<li>" << user << "</li>";
 }
 recfifo.fifoclose();
 }
