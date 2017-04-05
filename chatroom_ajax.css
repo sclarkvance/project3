@@ -1,4 +1,5 @@
 div.container {
+
 	width: 100%;
 }
 
@@ -6,6 +7,7 @@ div.container {
 h1 {
 	font-family: lucida console;
 }
+
 
 input[type=text1] {
 	width: 10%;
@@ -58,6 +60,14 @@ nav ul a {
 .chatList {
 	font-weight: normal;
 }
+
+h2 span {
+text-align: center;
+    margin-top: -10px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 15px;
+    }
 
 h2{
     text-align: center;
