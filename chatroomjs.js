@@ -1,12 +1,14 @@
 var XMLHttp;
 
 // Things to do at page load
-function pageInit() {
-	if(navigator.appName == "Microsoft Internet Explorer") {
+
+if(navigator.appName == "Microsoft Internet Explorer") {
     XMLHttp = new ActiveXObject("Microsoft.XMLHTTP");
 	} else {
     XMLHttp = new XMLHttpRequest();
 }
+
+function pageInit() {
 	AutoRefresh();
 }
 
@@ -30,8 +32,9 @@ function getUser () {
 						+ "&message=" + message 
 						,true);
 	XMLHttp.onreadystatechange=function() {
+	if (XMLHttp.readyState == 4) {
 		// Clear the input text
-		document.getElementById("message").value = "";
+		//document.getElementById("message").value = "";
 		// Force to bottom
 		updateScroll();
     	}
@@ -51,7 +54,9 @@ function validateMessage() {
 function getChats() {
 	XMLHttp.open("GET", "/cgi-bin/vances_chatroomajax.cgi?");
 	XMLHttp.onreadystatechange=function() {
+	if (XMLHttp.readyState == 4) {
     		document.getElementById('boxtext').innerHTML = XMLHttp.responseText;
+    	}
     	}
 	XMLHttp.send(null);
 }
@@ -59,5 +64,6 @@ function getChats() {
 var intVar;
 // Function to refresh chats every second
 function AutoRefresh() {
+
 	intVar = setInterval(function(){ getChats()}, 1000);
 }

@@ -19,48 +19,37 @@ using namespace std;
 string receive_fifo = "CRrequest";
 string send_fifo = "CRreply";
 
-string getMessage(string);
-// Precondition:
-// Postcondition:
-
-string sendMessage(string);
-// Precondition:
-// Postcondition:
-
 int main() {
-	string message, finalMessage;
+	vector<string> chatVector;
+	string user, message, fullChat;
 	
-    // Create the FIFOs for communication
+    // create the FIFOs for communication
 	Fifo recfifo(receive_fifo);
 	Fifo sendfifo(send_fifo);
-	
-	// Get results from AJAX
+//while loop to get results from ajax
 	while(1) {
-		getMessage(message);
-		sendMessage(finalMessage);
-    }
-}
+		fullChat = "";
+		cout << "Getting fifo" << endl;
 
-string getMessage(string) {
-	string fullChat = "";
-	cout << "Getting fifo" << endl;
-	/* Get a message from a client */
-	recfifo.openread();
-	cout << "Open read" << endl;   
-	fullChat = recfifo.recv();
-	cout << "Received: " << fullChat << endl;
-}
-
-string sendMessage(string) {
-	vector<string> chatVector;
-	string fullChat;
-	// Make sure chats have text
-	if (fullChat.length() > 1) {
+		/* Get a message from a client */
+		recfifo.openread();
+		cout << "Open read" << endl;
+    
+		fullChat = recfifo.recv();
+		cout << "Received: " << fullChat << endl;
+		//if statement to only push back chats with text
+		if (fullChat.length() > 4) {
+    
 		chatVector.push_back(fullChat);
-		sendfifo.openwrite();
-		// for loop to send contents of vector to the ajax
+		if (chatVector.size() >= 100) {
+		chatVector.erase(chatVector.begin());
+		}
+		
+    sendfifo.openwrite();
+    //for loop to send contents of vector to the ajax
 		for(int i=0; i < chatVector.size(); i++) {
-			cout << "Open write" << endl;
+			
+		cout << "Open write" << endl;
 			sendfifo.send(chatVector[i]);
 			cout << "Sending message " << i << endl;
 			cout << chatVector[i];
@@ -69,5 +58,6 @@ string sendMessage(string) {
 		sendfifo.fifoclose();
 		recfifo.fifoclose();
 		}
-		
+    }
 }
+

@@ -43,10 +43,12 @@ int main() {
 	// Call server to get results
 	string user = **username;
 	string message = **messageText;
+	if (user.size() != 0 && message.size() != 0) {
 	string ajaxMessage =  "&&"+user+"~~"+message; // Insert delineators
 	sendfifo.openwrite();
 	sendfifo.send(ajaxMessage);
     sendfifo.fifoclose();
+    }
 	/* Get a message from a server */
 	cout << "Content-Type: text/plain\n\n";
 	
