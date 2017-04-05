@@ -41,6 +41,7 @@ PutCGI: chatroomajax
 PutHTML:
 	cp chatroom_ajax.html /var/www/html/class/softdev/$(USER)
 	cp chatroom_ajax.css /var/www/html/class/softdev/$(USER)
+	cp chatroomjs.js /var/www/html/class/softdev/$(USER)
 
 	echo "Current contents of your HTML directory: "
 	ls -l /var/www/html/class/softdev/$(USER)

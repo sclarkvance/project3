@@ -59,7 +59,7 @@ h2 span{
     background-color: white;
 }
 
-.Messagebox {
+.MessageboxRoom {
 margin-left: 170 px;
 display: block;
     width: 30%;
@@ -73,10 +73,11 @@ display: block;
     overflow:scroll;
 }
 
-.two {
-    margin-left: 30%;
+.MessageboxDirect {
+    margin-right: 170 px;
     width: 30%;
     height: 200px;
+    float: right;
      font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif;
     font-size: 82%;
     padding:20px;

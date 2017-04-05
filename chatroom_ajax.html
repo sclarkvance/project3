@@ -8,107 +8,21 @@
 <head>
   <!-- $Id: chatroom_ajax.html,v 1.6 skon Exp $ -->
 <link rel="stylesheet" type="text/css" href="chatroom_ajax.css">
+<script type="text/javascript" src="chatroomjs.js"></script>
 <title>GNU cgicc Chatroom</title>
 </head>
 
-<<<<<<< HEAD
-<script type = "text/javascript" src="chatroomjs.js">
-=======
-<script type = "text/javascript">
-var XMLHttp;
-var cgiFlag = false;
-
-// Things to do at page load
-function pageInit() {
-if(navigator.appName == "Microsoft Internet Explorer") {
-    XMLHttp = new ActiveXObject("Microsoft.XMLHTTP");
-} else {
-    XMLHttp = new XMLHttpRequest();
-}
-
-	AutoRefresh();
-}
-
-// Function to force scrollable window at bottom
-function updateScroll() {
-    	var element = document.getElementById("boxtext");
-    	element.scrollTop = element.scrollHeight;
-}
-
-// Make user box read only
-function makeReadOnly() {
-    	document.getElementById('user').readOnly = true;
-} 
-  
-// Get user and message from input forms
-function getUser () {
-
-	var message = document.getElementById('message').value;
-	var user = document.getElementById('user').value;
-	if (message.length < 0 || user.length < 0) {
-	return;
-	}
-	if(cgiFlag == false) { XMLHttp.open("GET", "/cgi-bin/vances_chatroomajax.cgi?"
-						+ "&user=" + user
-						+ "&message=" + message 
-						,true);
-						cgiFlag = true; 
-	XMLHttp.onreadystatechange=function() {
-	if (XMLHttp.readyState == 4) {
-		// Clear the input text
-		document.getElementById("message").value = "";
-		// Force to bottom
-		//updateScroll();
-    	}
-    	}
-    	cgiFlag = false;
-	XMLHttp.send(null);   
-	} 	
-}
-
-// Make sure message doesn't contain the delineators
-function validateMessage() {
-	var message = document.getElementById("message").value;
-	if (message.indexOf('&&') > -1)
-	{
-		alert("Message may not contain '&&' ");
-	}
-}
-
-// Take chats from the chat vector and output them
-function getChats() {
-
-	if (cgiFlag == false) { XMLHttp.open("GET", "/cgi-bin/vances_chatroomajax.cgi?");
-	XMLHttp.onreadystatechange=function() {
-	if (XMLHttp.readyState == 4) {
-    		document.getElementById('boxtext').innerHTML = XMLHttp.responseText;
-    	}
-    	}
-	XMLHttp.send(null);
-	}
-}
-
-var intVar;
-// Function to refresh chats every second
-function AutoRefresh() {
-if (XMLHttp.readyState == 4) {
-	intVar = setInterval(function(){ getChats()}, 2000);
-	}
-}
- 
->>>>>>> 22d6e6b18f6e597204940fbb80ee2d7a37fbc348
-</script>
 
 <body onload="pageInit()">
 
-<div class="container">
+
 
 <h1>Chat Room</h1>
 
 Please enter your desired username: 
-<input user="user" type="text" id="user">
+<input user="user" type="text" id="user" value="">
 
-<input type="button" onclick="javascript: makeReadOnly ();" user="Submit" value="Submit" />
+<input type="button" onclick='javascript: validateMessage ("user");' user="Submit" value="Submit"; />
 <p>
 
 </p>
@@ -126,41 +40,32 @@ Please enter your desired username:
 	</ul>
 </nav>
 
-<div class = "Messagebox">
-<div id = "boxtext">
-	<h2><span>Group chat</span></h2>
-
+<div class = "MessageboxRoom">
+<h2><span>Chat Room</span></h2>
+<div id = "roomBoxText">
 </div>
 </div>
 
 Enter a message: 
-<input message="message" type="text" id="message" maxlength=140></td>
+<input type="text" id="roomMessage" value="" maxlength=140></td>
 
-<input type="button" value="Submit" message="Submit" onclick="javascript: validateMessage (); javascript: getUser (); javascript: updateScroll;"/>
+<input type="button" value="Submit" message="Submit" onclick='javascript: validateMessage ("roomMessage"); javascript: getUser ("roomMessage"); javascript: updateScroll;'/>
 
 
-
-<div id = "message_response_area">
-</div>
-
-<div class = "two">
-<div id = "boxtext">
+<div class = "MessageboxDirect">
 	<h2><span>Direct chat</span></h2>
+<div id = "directBoxText">
 </div>
 </div>
 
 Enter a message: 
-<input message="message" type="text" id="message" maxlength=140></td>
+<input type="text" id="directMessage" value="" maxlength=140></td>
 
-<input type="button" value="Submit" message="Submit" onclick="javascript: validateMessage (); javascript: getUser (); javascript: updateScroll;"/>
-
-
-
-<div id = "message_response_area">
-</div>
+<input type="button" value="Submit" message="Submit" onclick='javascript: validateMessage("directMessage"); javascript: getUser ("directMessage"); javascript: updateScroll;'/>
 
 
-</div>
+
+
 
 </body>
 	

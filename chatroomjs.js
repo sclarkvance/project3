@@ -1,14 +1,15 @@
 var XMLHttp;
+var cgiFlag = false;
+var chatType;
 
 // Things to do at page load
-
+function pageInit() {
 if(navigator.appName == "Microsoft Internet Explorer") {
     XMLHttp = new ActiveXObject("Microsoft.XMLHTTP");
-	} else {
+} else {
     XMLHttp = new XMLHttpRequest();
 }
 
-function pageInit() {
 	AutoRefresh();
 }
 
@@ -24,26 +25,36 @@ function makeReadOnly() {
 } 
   
 // Get user and message from input forms
-function getUser () {
-	var message = document.getElementById('message').value;
+function getUser (chatType) {
+
+	var message = document.getElementById(chatType).value;
 	var user = document.getElementById('user').value;
-	XMLHttp.open("GET", "/cgi-bin/vances_chatroomajax.cgi?"
+	if (message.length < 0 || user.length < 0) {
+	return;
+	}
+	if(cgiFlag == false) { XMLHttp.open("GET", "/cgi-bin/vances_chatroomajax.cgi?"
 						+ "&user=" + user
-						+ "&message=" + message 
+						+ "&message=" + message
+						+ "&chatType=" + chatType 
 						,true);
+						cgiFlag = true; 
 	XMLHttp.onreadystatechange=function() {
 	if (XMLHttp.readyState == 4) {
 		// Clear the input text
-		//document.getElementById("message").value = "";
+		document.getElementById(chatType).value = "";
 		// Force to bottom
-		updateScroll();
+		//updateScroll();
     	}
-	XMLHttp.send(null);
+    	}
+    	cgiFlag = false;
+	XMLHttp.send(null);   
+	} 	
+	makeReadOnly();
 }
 
 // Make sure message doesn't contain the delineators
-function validateMessage() {
-	var message = document.getElementById("message").value;
+function validateMessage(chatType) {
+	var message = document.getElementById(chatType).value;
 	if (message.indexOf('&&') > -1)
 	{
 		alert("Message may not contain '&&' ");
@@ -51,19 +62,24 @@ function validateMessage() {
 }
 
 // Take chats from the chat vector and output them
-function getChats() {
-	XMLHttp.open("GET", "/cgi-bin/vances_chatroomajax.cgi?");
+function getChats(chatType) {
+
+	if (cgiFlag == false) { XMLHttp.open("GET", "/cgi-bin/vances_chatroomajax.cgi?");
+	cgiFlag = true;
 	XMLHttp.onreadystatechange=function() {
 	if (XMLHttp.readyState == 4) {
-    		document.getElementById('boxtext').innerHTML = XMLHttp.responseText;
+    		document.getElementById(chatType).innerHTML = XMLHttp.responseText;
     	}
     	}
+    	cgiFlag = false;
 	XMLHttp.send(null);
+	}
 }
 
 var intVar;
 // Function to refresh chats every second
 function AutoRefresh() {
-
-	intVar = setInterval(function(){ getChats()}, 1000);
+if (XMLHttp.readyState == 4) {
+	intVar = setInterval(function(){ getChats(directBoxText); getChats(roomBoxText)}, 2000);
+	}
 }

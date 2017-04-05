@@ -35,6 +35,7 @@ int main() {
 	// Create AJAX objects to receive information from web page
 	form_iterator username = cgi.getElement("user");
 	form_iterator messageText = cgi.getElement("message");
+	form_iterator chatType = cgi.getElement("chatType");
 
 	// Create the FIFOs for communication
 	Fifo recfifo(receive_fifo);
@@ -43,8 +44,9 @@ int main() {
 	// Call server to get results
 	string user = **username;
 	string message = **messageText;
+	string chat = **chatType;
 	if (user.size() != 0 && message.size() != 0) {
-	string ajaxMessage =  "&&"+user+"~~"+message; // Insert delineators
+	string ajaxMessage =  "&&"+user+"~~"+message+"@@"+chat; // Insert delineators
 	sendfifo.openwrite();
 	sendfifo.send(ajaxMessage);
     }
@@ -52,7 +54,6 @@ int main() {
 	recfifo.openread();
 	
 	cout << "Content-Type: text/plain\n\n";
-	
 	
 	// Get results up to end message
 	do {
@@ -71,23 +72,28 @@ int main() {
 }
 
 string parseMessage(string message) {
-cout << "yah";
 	string user;
 	string finalMessage;
+	string chat;
 	const string userDelineator = "&&";
 	const string messageDelineator = "~~";
+	const string chatTypeDelineator = "@@";
 	size_t userPos = message.find_first_of(userDelineator);
 	size_t messagePos = message.find_first_of(messageDelineator); 
+	size_t chatTypePos = message.find_first_of(chatTypeDelineator);
 	
 	// Remove delineators from user
 	if (userPos != string::npos) {
-		user = message.substr(2, messagePos-2); 
+		user = message.substr(2, messagePos-1); 
     }
 	
     // Remove delineators from message
     if (messagePos != string::npos) {
-		message = message.substr(messagePos+2,userPos-2);
-		messagePos = message.find_first_of(messageDelineator, messagePos+1); 
+		message = message.substr(messagePos+2,chatTypePos-1);
+    }
+    
+    if (chatTypePos != string::npos) {
+    chat = message.substr(chatTypePos+2, message.length());
     }
 	
     // Prevent end message from being sent and prevent blank messages from showing up as a colon
