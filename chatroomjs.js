@@ -79,7 +79,9 @@ function getChats(chatType) {
 var intVar;
 // Function to refresh chats every second
 function AutoRefresh() {
-if (XMLHttp.readyState == 4) {
+if (cgiFlag == false && XMLHttp.readyState == 4) {
+cgiFlag = true;
 	intVar = setInterval(function(){ getChats(directBoxText); getChats(roomBoxText)}, 2000);
+	cgiFlag = false;
 	}
 }
