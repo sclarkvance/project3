@@ -1,11 +1,20 @@
-<STYLE TYPE-"type/css" >
+body {
+background-color: lightblue;
+}
 
-BODY {background: #FFFFFF}
-A:link {color: #80FF00}
-A:visited {color: #FF00FF}
-H1 {font-size: 24pt; font-family: arial}
-H2 {font-size: 18pt; font-family: braggadocio}
-H3 {font size:14pt; font-family: desdemona}
+h1 {
+font-family: verdana;
+}
+
+input[type=text] {
+	width: 20%;
+	padding: 12 px 20 px;
+	margin: 8px 0;
+	box-sizing: border-box;
+	border: none;
+	background-color: #3CBC8D;
+	color: white;
+}
 
 .Messagebox {
 display: block;
@@ -21,25 +30,3 @@ display: block;
 .boxtext {
 	display: block;
 }
-
-
-table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-}
-
-.message_response_area {
-display: block;
-width
-}
-
-td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-}
-
-tr:nth-child(even) {
-    background-color: #dddddd;
-}
-</STYLE>
