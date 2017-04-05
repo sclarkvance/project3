@@ -20,6 +20,8 @@ string receive_fifo = "CRrequest";
 string send_fifo = "CRreply";
 
 int main() {
+map<int, vector<string> > directChatMap;
+map<int, vector<string> >::iterator it;
 	vector<string> chatVector;
 	string user, message, fullChat;
 	
