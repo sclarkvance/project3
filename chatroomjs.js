@@ -68,7 +68,7 @@ function getChats(chatType) {
 	cgiFlag = true;
 	XMLHttp.onreadystatechange=function() {
 	if (XMLHttp.readyState == 4) {
-    		document.getElementById(chatType).innerHTML = XMLHttp.responseText;
+    		document.getElementById(chatType).value = XMLHttp.responseText;
     	cgiFlag = false;
     	}
     	}
@@ -81,7 +81,7 @@ var intVar;
 function AutoRefresh() {
 if (cgiFlag == false && XMLHttp.readyState == 4) {
 cgiFlag = true;
-	intVar = setInterval(function(){ getChats(directBoxText); getChats(roomBoxText)}, 2000);
+	intVar = setInterval(function(){ getChats("directBoxText"); getChats("roomBoxText")}, 2000);
 	cgiFlag = false;
 	}
 }

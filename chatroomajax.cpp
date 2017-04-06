@@ -23,6 +23,10 @@ string parseMessage(string);
 // Precondition: string is received
 // Postcondition: delineators are removed from string and final message is returned
 
+
+  
+
+int main() {
 // FIFOs for communication
 string receive_fifo = "CRreply";
 string send_fifo = "CRrequest";
@@ -30,9 +34,7 @@ string send_fifo = "CRrequest";
 	// Create the FIFOs for communication
 	Fifo recfifo(receive_fifo);
 	Fifo sendfifo(send_fifo);
-  
-
-int main() {
+	
 	string results, finalMessage;
 	Cgicc cgi; // AJAX object
 	char *cstr;
@@ -110,10 +112,10 @@ string parseMessage(string message) {
 
 void getUserList() {
 string user;
-recfifo.openread();
+//recfifo.openread();
 while (user.find("<!--$END-->") == string::npos && user != "") {
-user = recfifo.recv();
+//user = recfifo.recv();
 cout << "<li>" << user << "</li>";
 }
-recfifo.fifoclose();
+//recfifo.fifoclose();
 }
