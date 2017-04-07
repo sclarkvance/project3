@@ -106,12 +106,12 @@ ul.userList {
     padding: 0;
 }
 
-.roomBoxText {
+#roomBoxText {
 font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif;
 display: block;
 }
 
-.directBoxText {
+#directBoxText {
 font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif;
 display: block;
 }

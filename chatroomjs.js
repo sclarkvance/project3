@@ -26,9 +26,8 @@ function makeReadOnly() {
 function getUser (chatType) {
 alert("getuser initiated");
 	var message = document.getElementById(chatType).value;
-	alert(message);
 	var user = document.getElementById('user').value;
-	alert(user);
+
 	if (message.length < 0 || user.length < 0) {
 	alert("return");
 	return;
@@ -103,7 +102,8 @@ function AutoRefresh() {
 //if (XMLHttp.readyState == 4 && XMLHttp.status == 200) {
 //cgiFlag = true;
 	intVar = setInterval(function(){ getChats("directBoxText");}, 2000);
-	alert("autorefresh working");
+	
+
 	//cgiFlag = false;
 //	}
 }
