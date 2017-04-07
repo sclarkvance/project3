@@ -65,14 +65,6 @@ h2 {
     overflow:scroll;
 }
 
-.roomBoxText {
-display: block;
-}
-
-.directBoxText {
-display: block;
-}
-
 .MessageboxDirect {
     display: inline-block;
     width: 35%;
@@ -112,4 +104,14 @@ ul.userList {
     list-style-type: none;
     margin: 0;
     padding: 0;
+}
+
+.roomBoxText {
+font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif;
+display: block;
+}
+
+.directBoxText {
+font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif;
+display: block;
 }
