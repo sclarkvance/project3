@@ -15,19 +15,19 @@
 
 using namespace std;
 
-void buildVector(string);
-void buildMap(string);
+void buildVector(string, Fifo, Fifo);
+void buildMap(string, Fifo, Fifo);
 vector<string> indexSearch(string);
-void sendVector(vector<string>);
+void sendVector(vector<string>, Fifo, Fifo);
 void checkVector(string);
 
 /* Fifo names */
 string receive_fifo = "CRrequest";
 string send_fifo = "CRreply";
 
-// create the FIFOs for communication
-	Fifo recfifo(receive_fifo);
-	Fifo sendfifo(send_fifo);
+
+
+
 
 const string messageDelineator = "~~";
 map<string, vector<string> > directChatMap;
@@ -37,10 +37,13 @@ vector<string> onlineUsers;
 
 
 int main() {
+
+Fifo recfifo(receive_fifo);
+	Fifo sendfifo(send_fifo);
 	
 	string message, fullChat;
 	
-    
+    // create the FIFOs for communication
 //while loop to get results from ajax
 	while(1) {
 		fullChat = "";
@@ -59,11 +62,13 @@ int main() {
 		if (fullChat.length() > 6) {
 		string chatType = fullChat.substr(fullChat.length()-13, fullChat.length());
 		if (chatType == "directMessage") {
-		buildMap(fullChat);
+		cout << "buildMap" << endl;
+		buildMap(fullChat, sendfifo, recfifo);
 
 		}
 		else {
-		buildVector(fullChat);
+		buildVector(fullChat, sendfifo, recfifo);
+		cout << "buildVector" << endl;
 		}
 		
     
@@ -72,15 +77,15 @@ int main() {
 }
 
 
-void buildVector(string fullChat) {
+void buildVector(string fullChat, Fifo sendfifo, Fifo recfifo) {
 chatVector.push_back(fullChat);
 		if (chatVector.size() >= 100) {
 		chatVector.erase(chatVector.begin());
 		}
-		sendVector(chatVector);
+		sendVector(chatVector, sendfifo, recfifo);
 }
 
-void buildMap(string fullChat) {
+void buildMap(string fullChat, Fifo sendfifo, Fifo recfifo) {
 		cout << "direct message: " << endl;
 		size_t userPos = fullChat.find_first_of(messageDelineator);
 		string user = (fullChat.substr(2, userPos));
@@ -88,7 +93,7 @@ void buildMap(string fullChat) {
 		if (directChatMap[user].size() >= 100) {
 		directChatMap[user].erase(chatVector.begin());
 		}
-		sendVector(indexSearch(user));
+		sendVector(indexSearch(user), sendfifo, recfifo);
 }
 
 
@@ -102,18 +107,22 @@ if (it == directChatMap.end()) {
     }
 }
 
-void sendVector(vector<string> chats) {
+void sendVector(vector<string> chats, Fifo sendfifo, Fifo recfifo) {
+	
+    
 sendfifo.openwrite();
+cout << "Open write" << endl;
     //for loop to send contents of vector to the ajax
 		for(int i=0; i < chats.size(); i++) {
 			
-		cout << "Open write" << endl;
+		
 			sendfifo.send(chats[i]);
 			cout << "Sending message " << i << endl;
-			cout << chats[i];
+			cout << chats[i] << endl;
 		}   
 		sendfifo.send("<!--$END-->");
 		sendfifo.fifoclose();
+		cout << "fifo sent" << endl;
 }
 
 void checkVector(string user) {

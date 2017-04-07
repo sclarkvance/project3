@@ -14,6 +14,7 @@ input[type=text1] {
 	display: inline-block;
 	border-width: 2px;
 	box-sizing: border-box;
+	clear: left;
 }
 
 input[type=button] {
@@ -44,7 +45,7 @@ input[type=text2] {
 }
 
 h2 {
-	font-family: lucida console;
+	font-family: lucida console, Verdana, Tahoma, Arial, Helvetica, sans-serif;
     text-align: center;
     margin-top: -10px;
     height: 20px;
@@ -70,6 +71,7 @@ h2 {
     display: inline-block;
     width: 35%;
     height: 60%;
+    margin: 0px 10;
     font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif;
     font-size: 82%;
     padding:20px;
@@ -107,6 +109,18 @@ ul.userList {
     padding: 0;
 }
 
+<<<<<<< HEAD
  tr:nth-child(even) {
       background-color: #dddddd;
   }
+
+.roomBoxText {
+font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif;
+display: block;
+}
+
+.directBoxText {
+font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif;
+display: block;
+}
+>>>>>>> 988964f7ca5dbb1d49be3317522b0dedd9129327
