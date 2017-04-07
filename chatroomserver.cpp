@@ -89,6 +89,7 @@ void buildMap(string fullChat, Fifo sendfifo, Fifo recfifo) {
 		cout << "direct message: " << endl;
 		size_t userPos = fullChat.find_first_of(messageDelineator);
 		string user = (fullChat.substr(2, userPos));
+		checkVector(user);
 		directChatMap[user].push_back(fullChat);
 		if (directChatMap[user].size() >= 100) {
 		directChatMap[user].erase(chatVector.begin());
@@ -108,8 +109,7 @@ if (it == directChatMap.end()) {
 }
 
 void sendVector(vector<string> chats, Fifo sendfifo, Fifo recfifo) {
-	
-    
+	    
 sendfifo.openwrite();
 cout << "Open write" << endl;
     //for loop to send contents of vector to the ajax

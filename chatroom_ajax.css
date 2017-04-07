@@ -108,12 +108,24 @@ ul.userList {
     padding: 0;
 }
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+#roomBoxText {
+=======
+<<<<<<< HEAD
+ tr:nth-child(even) {
+      background-color: #dddddd;
+  }
+
+>>>>>>> 0cbce11f13403967177949f5b625b24045649da1
 .roomBoxText {
+>>>>>>> 328c8622c41fee672d59c3fa732ef3a7311751b7
 font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif;
 display: block;
 }
 
-.directBoxText {
+#directBoxText {
 font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif;
 display: block;
 }
