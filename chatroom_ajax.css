@@ -14,7 +14,6 @@ input[type=text1] {
 	display: inline-block;
 	border-width: 2px;
 	box-sizing: border-box;
-	clear: left;
 }
 
 input[type=button] {
@@ -91,7 +90,7 @@ h2 {
 }
 
 .chatList {
-	float: right;
+	float: left;
 	display: inline;
     width: 20%;
     height: 20%;
@@ -109,11 +108,6 @@ ul.userList {
     padding: 0;
 }
 
-<<<<<<< HEAD
- tr:nth-child(even) {
-      background-color: #dddddd;
-  }
-
 .roomBoxText {
 font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif;
 display: block;
@@ -123,4 +117,3 @@ display: block;
 font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif;
 display: block;
 }
->>>>>>> 988964f7ca5dbb1d49be3317522b0dedd9129327
