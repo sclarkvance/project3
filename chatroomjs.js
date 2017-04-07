@@ -27,7 +27,7 @@ function getUser (chatType) {
 alert("getuser initiated");
 	var message = document.getElementById(chatType).value;
 	var user = document.getElementById('user').value;
-
+	alert(user);
 	if (message.length < 0 || user.length < 0) {
 	alert("return");
 	return;
@@ -82,7 +82,6 @@ function getChats(chatType) {
     	
     	alert("get chats is working");
     	cgiFlag=false;
-    	if (chatType != "directBoxText") getChats("roomBoxText");
     	}
 
 	}
@@ -101,7 +100,7 @@ var intVar;
 function AutoRefresh() {
 //if (XMLHttp.readyState == 4 && XMLHttp.status == 200) {
 //cgiFlag = true;
-	intVar = setInterval(function(){ getChats("directBoxText");}, 2000);
+	intVar = setInterval(function(){ getChats("directBoxText");getChats("roomBoxText");}, 2000);
 	
 
 	//cgiFlag = false;
