@@ -91,6 +91,14 @@ h2{
     overflow:scroll;
 }
 
+.roomBoxText {
+display: block;
+}
+
+.directBoxText {
+display: block;
+}
+
 .MessageboxDirect {
     margin-right: 170 px;
     width: 30%;

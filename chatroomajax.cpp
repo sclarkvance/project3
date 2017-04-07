@@ -23,17 +23,16 @@ string parseMessage(string);
 // Precondition: string is received
 // Postcondition: delineators are removed from string and final message is returned
 
+void getUserList();
 
-  
+
+  string receive_fifo = "CRreply";
+string send_fifo = "CRrequest";
 
 int main() {
 // FIFOs for communication
-string receive_fifo = "CRreply";
-string send_fifo = "CRrequest";
 
-	// Create the FIFOs for communication
-	Fifo recfifo(receive_fifo);
-	Fifo sendfifo(send_fifo);
+
 	
 	string results, finalMessage;
 	Cgicc cgi; // AJAX object
@@ -42,17 +41,23 @@ string send_fifo = "CRrequest";
 	// Create AJAX objects to receive information from web page
 	form_iterator username = cgi.getElement("user");
 	form_iterator messageText = cgi.getElement("message");
-	form_iterator chatType = cgi.getElement("chatType");
+	form_iterator chatTypeIt = cgi.getElement("chatType");
 
+
+
+	// Create the FIFOs for communication
+	Fifo recfifo(receive_fifo);
+	Fifo sendfifo(send_fifo);
 
 	// Call server to get results
 	string user = **username;
 	string message = **messageText;
-	string chat = **chatType;
+	string chat = **chatTypeIt;
 	if (user.size() != 0 && message.size() != 0) {
 	string ajaxMessage =  "&&"+user+"~~"+message+"@@"+chat; // Insert delineators
 	sendfifo.openwrite();
 	sendfifo.send(ajaxMessage);
+	sendfifo.fifoclose();
     }
 	/* Get a message from a server */
 	recfifo.openread();
@@ -69,7 +74,7 @@ string send_fifo = "CRrequest";
 			cout << "<p>" << finalMessage << "</p>";
 		}
 	} while (results.find("<!--$END-->") == string::npos);
-	sendfifo.fifoclose();
+	
 	recfifo.fifoclose();
 	
 	return 0;
