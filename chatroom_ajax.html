@@ -11,6 +11,7 @@
 
 <body onload="pageInit()">
 	<h1>Chat Room</h1>
+<<<<<<< HEAD
 	<p>Please enter your desired username:</p>
 	<input user="user" type="text1" id="user" value="" placeholder="username">
 	<input type="button" onclick='javascript: validateMessage ("user"); javascript: Autorefresh();' user="Submit" value="Submit"; />
@@ -19,6 +20,12 @@
 <div id = "user_response_area">
 </div>
 
+=======
+	<p>Please enter your desired username:
+		<input user="user" type="text1" id="user" value="" placeholder="Username">
+		<input type="button" onclick='javascript: validateMessage ("user");' user="Submit" value="Submit"; />
+	</p>
+>>>>>>> f5490ba7add960a14edb1619f3da234bc4d2ed30
 
 <div class = "MessageboxRoom">
 <h2><span>Chat Room</span></h2>
@@ -26,11 +33,14 @@
 </div>
 </div>
 
-
-	<div id = "user_response_area">
-	</div>
 	
+<div class = "MessageboxDirect">
+<h2><span>Direct Chat</span></h2>
+<div id = "directBoxText">
+</div>
+</div>
 
+<<<<<<< HEAD
 	<p>Enter a message:</p> 
 	<input type="text2" id="roomMessage" chatType="roomMessage" placeholder="message" maxlength=140 message="roomMessage"></td>
 	<input type="button" value="Submit" message="Submit" onclick='javascript: validateMessage ("roomMessage"); javascript: getUser ("roomMessage"); javascript: updateScroll;'/>
@@ -43,16 +53,27 @@
 
 	<p> Enter a message:</p>
 	<input type="text2" id="directMessage" chatType="directMessage" placeholder="message" message="directMessage" maxlength=140></td>
-	<input type="button" value="Submit" message="Submit" onclick='javascript: validateMessage("directMessage"); javascript: getUser ("directMessage"); javascript: updateScroll;'/>
-
-	<h3 class = "chatList">Currently online</h3>
-	<nav>
-		<ul id = "user list">
-			<li> test person 1 </li>
-			<li> test bitch 2 </li>
-			<li> test bitch 3 </li>
+=======
+<div class = "chatList">
+<h2><span>Currently Online</span> </h2>
+	<ul class = "userList">
+		<li> test person 1 </li> 
+		<li> test bitch 2 </li>
+		<li> test bitch 3 </li>
 		</ul>
-	</nav>
+	</div>
+
+
+<p>
+	<input type="text2" id="directMessage" placeholder="Direct message" value="" maxlength=140></td>
+>>>>>>> f5490ba7add960a14edb1619f3da234bc4d2ed30
+	<input type="button" value="Submit" message="Submit" onclick='javascript: validateMessage("directMessage"); javascript: getUser ("directMessage"); javascript: updateScroll;'/>
+	
+	
+	<input type="text3" id="roomMessage" value="" placeholder="Message" maxlength=140></td>
+	<input type="button" value="Submit" message="Submit" onclick='javascript: validateMessage ("roomMessage"); javascript: getUser ("roomMessage"); javascript: updateScroll;'/>
+	</p>
+
 
 </body>
 	

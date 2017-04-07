@@ -1,25 +1,25 @@
 div.container {
-
 	width: 100%;
+    height: 200px;
+    margin: auto;
+    padding: 10px;
 }
-
 
 h1 {
 	font-family: lucida console;
 }
 
-
 input[type=text1] {
 	width: 10%;
 	margin: 4px 1px;
 	display: inline-block;
-	border-width: 4px;
+	border-width: 2px;
 	box-sizing: border-box;
 }
 
 input[type=button] {
 	width: 5%;
-	background-color: #4CAf50;
+	background-color: blue;
 	color: white;
 	padding: 5px 10px;
 	margin: 2px 0;
@@ -29,38 +29,50 @@ input[type=button] {
 }
 
 input[type=button]:hover {
-	background-color: #45a049;
+	background-color: cyan;
 }
 
 input[type=text2] {
-	width: 50%;
-	margin: 4px 1px;
-	display: inline-block;
-	border-width: 5px;
-	border-color: blue;
-	box-sizing: border-box;
-}
-
-nav {
 	float: left;
-	max-width: 160px;
-	margin: 0;
-	padding: 1em;
+	margin-left: 7%;
+	display: block;
+    width: 25%;
+    height: 200px;
+    font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif;
+    font-size: 82%;
+    padding:20px;
+    overflow:scroll;
 }
 
-nav ul {
-	list-style-type: none;
-	padding: 0;
-}
-
-nav ul a {
-	text-decoration: none;
+input[type=text3] {
+	float: left;
+	margin-left: 10%;
+	display: block;
+    width: 25%;
+    height: 200px;
+    font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif;
+    font-size: 82%;
+    padding:20px;
+    overflow:scroll;
 }
 
 .chatList {
-	font-weight: normal;
+	display: block in-line;
+    width: 20%;
+    height: 20%;
+    font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif;
+    font-size: 82%;
+    padding:10px;
+    border: 4px solid blue;
+    border-radius: 8px;
+    overflow:scroll;
 }
 
+ul.userList {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
 h2 span {
 text-align: center;
     margin-top: -10px;
@@ -78,16 +90,15 @@ h2{
 }
 
 .MessageboxRoom {
-	margin-left: 170 px;
+	float: left;
 	display: block;
-    width: 30%;
-    height: 200px;
-    float: left;
+    width: 35%;
+    height: 60%;
     font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif;
     font-size: 82%;
     padding:20px;
-    border:5px solid blue;
-    border-radius:8px;
+    border: 4px solid blue;
+    border-radius: 8px;
     overflow:scroll;
 }
 
@@ -100,18 +111,14 @@ display: block;
 }
 
 .MessageboxDirect {
-    margin-right: 170 px;
-    width: 30%;
-    height: 200px;
-    float: right;
+    margin-left: 43%;
+    display: block;
+    width: 35%;
+    height: 60%;
     font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif;
     font-size: 82%;
     padding:20px;
-    border:5px solid blue;
-    border-radius:8px;
+    border: 4px solid blue;
+    border-radius: 8px;
     overflow:scroll;
-}
-
-ul {
-    border: 1px solid black;
 }
