@@ -66,6 +66,7 @@ h2 {
 }
 
 .MessageboxDirect {
+    float: left;
     display: inline-block;
     width: 35%;
     height: 60%;
@@ -79,7 +80,7 @@ h2 {
 
 .TypeMessage {
 	clear: left;
-	display: inline;
+	display: inline-block;
     width: 35%;
     height: 20%;
     font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif;
@@ -105,3 +106,7 @@ ul.userList {
     margin: 0;
     padding: 0;
 }
+
+ tr:nth-child(even) {
+      background-color: #dddddd;
+  }
