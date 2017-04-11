@@ -18,30 +18,28 @@
 		<input type="button" user="Submit" onclick='javascript: validateMessage ("user");' value="Submit"; />
 	</p>
 
+<h2><span>Chat Room</span></h2>
 <div class = "MessageboxRoom">
-	<h2><span>Chat Room</span></h2>
 	<div id = "roomBoxText">	
 	</div>
 </div>
 
-<div class = "MessageboxDirect">
 <h2><span>Direct Chat</span></h2>
+<div class = "MessageboxDirect">
 <div id = "directBoxText">
 </div>
 </div>
 
-
 <div class = "TypeMessage">
-	<input type="text2" id="roomMessage" value="" placeholder="Message" maxlength=140></td>	
+	<input type="text2" id="roomMessage" placeholder="Message" maxlength=140></td>	
 </div>
 
+<input type="button" value="Submit" message="Submit" onclick='javascript: validateMessage ("roomMessage"); javascript: getUser("roomMessage");'/>
+
 <div class = "TypeMessage">
-	<input type="text2" id="directMessage" placeholder="Direct message" value="" maxlength=140></td>
+	<input type="text2" id="directMessage" placeholder="Direct message" maxlength=140></td>
 </div>
-
-<input type="button" value="Submit" message="Submit" onclick='javascript: validateMessage ("roomMessage"); javascript: getUser ("roomMessage"); javascript: updateScroll;'/>
-
-<input type="button" value="Submit" message="Submit" onclick='javascript: validateMessage("directMessage"); javascript: getUser ("directMessage"); javascript: updateScroll;'/>
+<input type="button" value="Submit" message="Submit" onclick='javascript: validateMessage("directMessage"); javascript: getUser("directMessage");'/>
 
 
 <div class = "chatList">

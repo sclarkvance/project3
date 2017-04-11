@@ -1,21 +1,27 @@
-var XMLHttp;
+var XMLHttpCR;
+var XMLHttpDC;
 var cgiFlag = false;
-var chatType = "";
+var cgiFlagDirect = false;
+var chatType;
 
 // Things to do at page load
 function pageInit() {
+console.log("page init");
+alert("page init");
 if(navigator.appName == "Microsoft Internet Explorer") {
-    XMLHttp = new ActiveXObject("Microsoft.XMLHTTP");
+    XMLHttpCR = new ActiveXObject("Microsoft.XMLHTTP");
+    XMLHttpDC = new ActiveXObject("Microsoft.XMLHTTP");
 } else {
-    XMLHttp = new XMLHttpRequest();
+    XMLHttpCR = new XMLHttpRequest();
+    XMLHttpDC = new XMLHttpRequest();
 }
 }
 
 // Function to force scrollable window at bottom
-function updateScroll() {
-    	var element = document.getElementById("boxtext");
-    	element.scrollTop = element.scrollHeight;
-}
+//function updateScroll() {
+ //   	var element = document.getElementById("boxtext");
+   // 	element.scrollTop = element.scrollHeight;
+//}
 
 // Make user box read only
 function makeReadOnly() {
@@ -23,41 +29,78 @@ function makeReadOnly() {
 } 
   
 // Get user and message from input forms
-function getUser (chatType) {
+function getUser(chatType) {
 alert("getuser initiated");
+alert(chatType);
+//alert("getuser initiated");
 	var message = document.getElementById(chatType).value;
 	var user = document.getElementById('user').value;
-	alert(user);
+	alert(message);
+	alert(chatType);
+	alert(cgiFlag);
 	if (message.length < 0 || user.length < 0) {
 	alert("return");
 	return;
 	}
-	alert(cgiFlag);
-	if(cgiFlag == false) { 
+	if(cgiFlag == false && chatType == "roomMessage") {
+	alert("ROOM MESSAGE");
 	cgiFlag = true;
-	XMLHttp.open("GET", "/cgi-bin/vances_chatroomajax.cgi?"
+		XMLHttpCR.open("GET", "/cgi-bin/vances_chatroomajax.cgi?"
 						+ "&user=" + user
 						+ "&message=" + message
 						+ "&chatType=" + chatType 
 						,true);
-						 
-	XMLHttp.onreadystatechange=function() {
+						alert(message);
+						 alert("xml");
+						 alert(XMLHttpCR.readyState);
+	XMLHttpCR.onreadystatechange=function() {
 	alert("statechange--getuser");
-	alert(XMLHttp.readyState);
-	if (XMLHttp.readyState == 4) {
-	alert("ready state is 4!!!");
+	alert(XMLHttpCR.readyState);
+	if (XMLHttpCR.readyState == 4) {
+	//alert("ready state is 4!!!");
 		// Clear the input text
 		document.getElementById(chatType).value = "";
+		alert(XMLHttpCR.readyState);
+	alert("getuser sent- room"); 
+	makeReadOnly();
+	
 		// Force to bottom
 		//updateScroll();
 		cgiFlag = false;
     	}
-	} 	
-		
-	alert(XMLHttp.readyState);
-	alert("getuser sent"); 
+	}
+	XMLHttpCR.send(null); 
+	}
+	
+	if(cgiFlagDirect == false && chatType == "directMessage") {
+	//alert("DRIECT MESSAGE");
+	cgiFlagDirect = true;
+			//alert(user);		
+				XMLHttpDC.open("GET", "/cgi-bin/vances_directchatajax.cgi?"
+						+ "&user=" + user
+						+ "&message=" + message
+						+ "&chatType=" + chatType 
+						,true);	 
+	XMLHttpDC.onreadystatechange=function() {
+//	alert("statechange--getuser");
+//	alert(XMLHttpDC.readyState);
+	if (XMLHttpDC.readyState == 4) {
+	//alert("ready state is 4!!!");
+		// Clear the input text
+		document.getElementById(chatType).value = "";
+		// Force to bottom
+		//updateScroll();
+	//	alert(XMLHttpDC.readyState);
+	//alert("getuser sent- direct"); 
 	makeReadOnly();
-	XMLHttp.send(null);
+		cgiFlagDirect = false;
+    	}
+	} 
+	//alert(XMLHttpDC.readyState);
+		//	alert("readystate skipped");
+	
+		XMLHttpDC.send(null);	
+	
 	}
 }
 
@@ -71,25 +114,48 @@ function validateMessage(chatType) {
 }
 
 // Take chats from the chat vector and output them
-function getChats(chatType) {
+function getChats() {
+alert("Get CHats");
+if(cgiFlag == true) return;
 	if (cgiFlag == false) {
 		cgiFlag = true;
-	 XMLHttp.open("GET", "/cgi-bin/vances_chatroomajax.cgi?", true);
-	XMLHttp.onreadystatechange=function() {
+		alert("getChats running");
+				 XMLHttpCR.open("GET", "/cgi-bin/vances_chatroomajax.cgi?", true);
+	XMLHttpCR.onreadystatechange=function() {
 	alert("readystate change");
-	if (XMLHttp.readyState == 4) {
-    		document.getElementById(chatType).innerHTML = XMLHttp.responseText;
+	if (XMLHttpCR.readyState == 4) {
+	alert(XMLHttpCR.responseText);
+    		document.getElementById('roomBoxText').innerHTML = XMLHttpCR.responseText;
     	
     	alert("get chats is working");
     	cgiFlag=false;
     	}
+alert("getCHats sent");
+	}
+	XMLHttpCR.send(null);
+}
+}
+
+
+function getDirect() {
+alert("get direct started");
+if(cgiFlagDirect == true) return;
+	if (cgiFlagDirect == false) {
+		 XMLHttpDC.open("GET", "/cgi-bin/vances_directchatajax.cgi?", true);
+		cgiFlagDirect = true;
+		alert("getChats running");
+	XMLHttpDC.onreadystatechange=function() {
+    alert("readystate change");
+	if (XMLHttpDC.readyState == 4) {
+    		document.getElementById('directBoxText').innerHTML = XMLHttpDC.responseText;
+    	
+    	alert("get chats is working");
+    	cgiFlagDirect=false;
+    	}
+	alert("getCHats sent");
 
 	}
-	
-	alert("getCHats sent");
-	cgiFlag = false;
-	XMLHttp.send(null);
-	
+	XMLHttpDC.send(null);
 }
 }
 
@@ -100,9 +166,7 @@ var intVar;
 function AutoRefresh() {
 //if (XMLHttp.readyState == 4 && XMLHttp.status == 200) {
 //cgiFlag = true;
-	intVar = setInterval(function(){ getChats("directBoxText");getChats("roomBoxText");}, 2000);
-	
-
+	intVar = setInterval(function(){ getChats(); getDirect();}, 2000);
 	//cgiFlag = false;
 //	}
 }
